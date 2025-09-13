@@ -1,5 +1,5 @@
 import { Outlet } from 'react-router-dom';
-import ScrollToTop from './ScrollToTop'; // Adjust the import path as needed
+import ScrollToTop from './components/ScrollToTop'; // Ensure the path is correct
 
 export default function AppLayout() {
   return (

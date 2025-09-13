@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 
 const navLinkClass = ({ isActive }) =>
@@ -13,9 +13,11 @@ const mobileNavLinkClass = "block px-4 py-3 text-base font-medium text-gray-700 
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const location = useLocation();
+  const isDomainPage = location.pathname === '/domain';
 
   return (
-    <header className="bg-white shadow-sm rounded-full mx-2 sm:mx-4 mt-4 sm:mt-6 md:mt-8 relative z-50">
+    <header className={`${isDomainPage ? 'bg-gray-00' : 'bg-white'} shadow-sm rounded-full mx-2 sm:mx-4 mt-4 sm:mt-6 md:mt-8 relative z-50`}>
       <div className="max-w-6xl mx-auto px-3 sm:px-4 md:px-6 h-14 sm:h-15 md:h-16 flex items-center justify-between">
         {/* Logo - Responsive sizing */}
         <NavLink to="/" className="flex items-center flex-shrink-0">
@@ -70,7 +72,7 @@ export default function Navbar() {
           />
           
           {/* Mobile menu panel */}
-          <nav className="lg:hidden absolute top-full left-0 right-0 bg-white border border-gray-100 rounded-2xl shadow-xl mx-2 sm:mx-4 mt-2 z-50">
+          <nav className={`lg:hidden absolute top-full left-0 right-0 ${isDomainPage ? 'bg-gray-100' : 'bg-white'} border border-gray-100 rounded-2xl shadow-xl mx-2 sm:mx-4 mt-2 z-50`}>
             <div className="px-4 sm:px-6 py-4 space-y-2">
               <NavLink
                 to="/"
