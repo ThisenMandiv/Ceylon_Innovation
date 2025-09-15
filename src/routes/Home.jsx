@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { useState } from 'react';
 import Navbar from '../components/Navbar.jsx';
 import Footer from '../components/Footer.jsx';
 import Slider from 'react-slick';
@@ -6,6 +7,14 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
 export default function Home() {
+  const [activeProductTab, setActiveProductTab] = useState('pro');
+  const productTabs = [
+    { id: 'pro', label: 'SKYNET Pro' },
+    { id: 'retail', label: 'SKYNET Retail' },
+    { id: 'health', label: 'HEALTHCARE IMS' },
+    { id: 'stars', label: 'STARS IMS' },
+  ];
+  const activeProductIndex = productTabs.findIndex(t => t.id === activeProductTab);
   const settings = {
     dots: false,
     infinite: true,
@@ -215,123 +224,148 @@ export default function Home() {
             </div>
           </section>
 
-          {/* New Products Section */}
-          <section className="bg-gray-50 max-w-7xl mx-auto py-12 md:py-16 rounded-3xl">
-      <div className="px-4 sm:px-6 md:px-8">
-        {/* Heading */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-8 sm:mb-12 md:mb-16"
-        >
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-4 leading-tight">
-            Our <span className="text-cyan-500">Products</span>
-          </h2>
-          <p className="text-gray-600 text-sm md:text-base max-w-2xl mx-auto">
-            We have many products For You with Affordable Price
-          </p>
-        </motion.div>
+          {/* Products Section - Tabbed layout matching design */}
+          <section className="bg-white max-w-7xl mx-auto py-12 md:py-16">
+            <div className="px-4 sm:px-6 md:px-8">
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8 }}
+                className="text-center mb-3"
+              >
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 leading-tight">
+                  Our <span className="text-cyan-500">Products</span>
+                </h2>
+                <p className="text-gray-600 text-sm md:text-base mt-3">
+                  We have many products For You with Affordable Price
+                </p>
+              </motion.div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8">
-                {/* Product Card 1 */}
-                <motion.div
-                  className="bg-white rounded-2xl p-4 sm:p-6 shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 group"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.1 }}
-                >
-                  <div className="aspect-video bg-gradient-to-br from-slate-800 to-slate-900 rounded-xl mb-4 overflow-hidden relative">
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <div className="grid grid-cols-2 gap-1 w-20 h-16">
-                        <div className="bg-cyan-500 rounded-sm"></div>
-                        <div className="bg-blue-600 rounded-sm"></div>
-                        <div className="bg-slate-600 rounded-sm"></div>
-                        <div className="bg-slate-400 rounded-sm"></div>
-                      </div>
-                    </div>
-                    <div className="absolute bottom-2 right-2 w-8 h-6 bg-white/20 rounded backdrop-blur-sm flex items-center justify-center">
-                      <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
-                    </div>
+              {/* Tabs */}
+              <div className="mt-8">
+                <div className="relative border-b border-gray-200">
+                  <div className="flex text-xs sm:text-sm text-gray-600">
+                    {productTabs.map((tab) => (
+                      <button
+                        key={tab.id}
+                        onClick={() => setActiveProductTab(tab.id)}
+                        className={`flex-1 px-3 sm:px-4 py-2 font-medium transition-colors ${
+                          activeProductTab === tab.id ? 'text-blue-600' : 'hover:text-blue-600'
+                        }`}
+                      >
+                        {tab.label}
+                      </button>
+                    ))}
                   </div>
-                  <div className="text-center">
-                    <h3 className="font-semibold text-gray-900 mb-2">Web Development</h3>
-                    <a href="#" className="text-cyan-500 text-sm font-medium hover:text-cyan-600 transition-colors">
-                      Read More
-                    </a>
+                  <motion.div
+                    className="absolute bottom-[-1px] h-[3px] bg-blue-500 rounded-full"
+                    initial={false}
+                    animate={{
+                      left: `${(activeProductIndex / productTabs.length) * 100}%`,
+                      width: `${100 / productTabs.length}%`,
+                    }}
+                    transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+                    style={{ left: 0, width: `${100 / productTabs.length}%` }}
+                  />
+                </div>
+              </div>
+
+              {/* Cards */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8 mt-8">
+                {/* SKYNET Pro */}
+                <motion.div
+                  whileHover={{ y: -6, scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  onClick={() => setActiveProductTab('pro')}
+                  role="button"
+                  tabIndex={0}
+                  onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') setActiveProductTab('pro'); }}
+                  className={`bg-white rounded-2xl border border-gray-200 overflow-hidden cursor-pointer shadow-sm transition-all will-change-transform ${
+                    activeProductTab === 'pro' ? 'ring-2 ring-blue-500/60 shadow-lg' : 'hover:shadow-xl'
+                  }`}
+                >
+                  <div className="aspect-[4/3] bg-white flex items-center justify-center">
+                    <img src="assets/skynet-pro.png" alt="SKYNET Pro" className="w-full h-full object-contain p-3" />
+                  </div>
+                  <div className="p-5">
+                    <p className="text-[13px] leading-6 text-gray-600">
+                      SKYNET Pro uses the latest technology to manage entire hospitality businesses efficiently. Supports big-scale operations and handles unlimited transactions seamlessly.
+                    </p>
+                    <a href="#" className="inline-block mt-4 text-blue-600 font-semibold text-sm">Read More</a>
                   </div>
                 </motion.div>
 
-                {/* Product Card 2 */}
+                {/* SKYNET Retail */}
                 <motion.div
-                  className="bg-white rounded-2xl p-4 sm:p-6 shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 group"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.2 }}
+                  whileHover={{ y: -6, scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  onClick={() => setActiveProductTab('retail')}
+                  role="button"
+                  tabIndex={0}
+                  onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') setActiveProductTab('retail'); }}
+                  className={`bg-white rounded-2xl border border-gray-200 overflow-hidden cursor-pointer shadow-sm transition-all will-change-transform ${
+                    activeProductTab === 'retail' ? 'ring-2 ring-blue-500/60 shadow-lg' : 'hover:shadow-xl'
+                  }`}
                 >
-                  <div className="aspect-video bg-gradient-to-br from-cyan-600 to-blue-700 rounded-xl mb-4 overflow-hidden relative">
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <div className="flex space-x-2">
-                        <div className="w-12 h-16 bg-white/90 rounded-lg shadow-lg"></div>
-                        <div className="w-12 h-16 bg-white/70 rounded-lg shadow-lg mt-2"></div>
-                      </div>
-                    </div>
+                  <div className="aspect-[4/3] bg-white flex items-center justify-center">
+                    <img src="assets/skynet-retail.png" alt="SKYNET Retail" className="w-full h-full object-contain p-3" />
                   </div>
-                  <div className="text-center">
-                    <h3 className="font-semibold text-gray-900 mb-2">Mobile Apps</h3>
-                    <a href="#" className="text-cyan-500 text-sm font-medium hover:text-cyan-600 transition-colors">
-                      Read More
-                    </a>
+                  <div className="p-5">
+                    <p className="text-[13px] leading-6 text-gray-600">
+                      SKYNET Retail software is designed for salons, supermarkets, liquor stores, clothing stores. It enables smooth transactions and improves customer service efficiency.
+                    </p>
+                    <a href="#" className="inline-block mt-4 text-blue-600 font-semibold text-sm">Read More</a>
                   </div>
                 </motion.div>
 
-                {/* Product Card 3 */}
+                {/* HEALTHCARE IMS */}
                 <motion.div
-                  className="bg-white rounded-2xl p-4 sm:p-6 shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 group"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.3 }}
+                  whileHover={{ y: -6, scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  onClick={() => setActiveProductTab('health')}
+                  role="button"
+                  tabIndex={0}
+                  onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') setActiveProductTab('health'); }}
+                  className={`bg-white rounded-2xl border border-gray-200 overflow-hidden cursor-pointer shadow-sm transition-all will-change-transform ${
+                    activeProductTab === 'health' ? 'ring-2 ring-blue-500/60 shadow-lg' : 'hover:shadow-xl'
+                  }`}
                 >
-                  <div className="aspect-video bg-gradient-to-br from-blue-800 to-indigo-900 rounded-xl mb-4 overflow-hidden relative">
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <div className="w-20 h-12 bg-white/90 rounded shadow-lg flex items-center justify-center">
-                        <div className="text-blue-800 font-bold text-xs">ERP</div>
-                      </div>
-                    </div>
+                  <div className="aspect-[4/3] bg-white flex items-center justify-center">
+                    <img src="assets/healthcare-ims.png" alt="HEALTHCARE IMS" className="w-full h-full object-contain p-3" />
                   </div>
-                  <div className="text-center">
-                    <h3 className="font-semibold text-gray-900 mb-2">ERP Systems</h3>
-                    <a href="#" className="text-cyan-500 text-sm font-medium hover:text-cyan-600 transition-colors">
-                      Read More
-                    </a>
+                  <div className="p-5">
+                    <p className="text-[13px] leading-6 text-gray-600">
+                      HEALTHCARE IMS supports hospitals, clinics, labs and pharmacies of any size. Fully customizable to fit specific customer. All user data is securely stored.
+                    </p>
+                    <a href="#" className="inline-block mt-4 text-blue-600 font-semibold text-sm">Read More</a>
                   </div>
                 </motion.div>
 
-                {/* Product Card 4 */}
+                {/* STARS IMS */}
                 <motion.div
-                  className="bg-white rounded-2xl p-4 sm:p-6 shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 group"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.4 }}
+                  whileHover={{ y: -6, scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  onClick={() => setActiveProductTab('stars')}
+                  role="button"
+                  tabIndex={0}
+                  onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') setActiveProductTab('stars'); }}
+                  className={`bg-white rounded-2xl border border-gray-200 overflow-hidden cursor-pointer shadow-sm transition-all will-change-transform ${
+                    activeProductTab === 'stars' ? 'ring-2 ring-blue-500/60 shadow-lg' : 'hover:shadow-xl'
+                  }`}
                 >
-                  <div className="aspect-video bg-gradient-to-br from-slate-700 to-slate-900 rounded-xl mb-4 overflow-hidden relative">
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <div className="w-16 h-10 bg-white/90 rounded shadow-lg flex items-center justify-center relative">
-                        <div className="absolute -top-1 -right-1 w-3 h-3 bg-green-500 rounded-full"></div>
-                        <div className="w-8 h-6 bg-blue-100 rounded"></div>
-                      </div>
-                    </div>
+                  <div className="aspect-[4/3] bg-white flex items-center justify-center">
+                    <img src="assets/stars-ims.png" alt="STARS IMS" className="w-full h-full object-contain p-3" />
                   </div>
-                  <div className="text-center">
-                    <h3 className="font-semibold text-gray-900 mb-2">Software Solutions</h3>
-                    <a href="#" className="text-cyan-500 text-sm font-medium hover:text-cyan-600 transition-colors">
-                      Read More
-                    </a>
+                  <div className="p-5">
+                    <p className="text-[13px] leading-6 text-gray-600">
+                      STARS IMS is unique software designed for schools, tutors, colleges and universities. Built with secure technology, advanced features, and carefully tailored for education.
+                    </p>
+                    <a href="#" className="inline-block mt-4 text-blue-600 font-semibold text-sm">Read More</a>
                   </div>
                 </motion.div>
               </div>
-      </div>
-    </section>
+            </div>
+          </section>
 
           {/* Enhanced Superb Slider Section - Responsive improvements */}
           <section className="bg-gradient-to-br from-gray-50 via-white to-blue-50/30 max-w-7xl mx-auto py-12 sm:py-16 md:py-20 relative overflow-hidden">
