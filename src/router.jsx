@@ -14,6 +14,9 @@ import Hospitality from './routes/hospitality';
 import Education from './routes/education';
 import Retail from './routes/retail';
 
+// Skynet Pro page
+import SkynetPro from './routes/SkynetPro'; // Make sure the path to SkynetPro is correct
+
 export const router = createBrowserRouter([
   {
     path: '/',
@@ -30,6 +33,9 @@ export const router = createBrowserRouter([
       { path: 'domain/hospitality', element: <Hospitality /> },
       { path: 'domain/education', element: <Education /> },
       { path: 'domain/retail', element: <Retail /> },
+
+      // Skynet Pro sub-route
+      { path: 'skynet-pro', element: <SkynetPro /> }, // Add this line
     ],
   },
 ]);
