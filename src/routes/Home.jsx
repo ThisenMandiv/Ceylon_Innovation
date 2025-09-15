@@ -273,7 +273,17 @@ export default function Home() {
               {/* Cards */}
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8 mt-8">
                 {/* SKYNET Pro */}
-                <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden">
+                <motion.div
+                  whileHover={{ y: -6, scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  onClick={() => setActiveProductTab('pro')}
+                  role="button"
+                  tabIndex={0}
+                  onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') setActiveProductTab('pro'); }}
+                  className={`bg-white rounded-2xl border border-gray-200 overflow-hidden cursor-pointer shadow-sm transition-all will-change-transform ${
+                    activeProductTab === 'pro' ? 'ring-2 ring-blue-500/60 shadow-lg' : 'hover:shadow-xl'
+                  }`}
+                >
                   <div className="aspect-[4/3] bg-white flex items-center justify-center">
                     <img src="assets/skynet-pro.png" alt="SKYNET Pro" className="w-full h-full object-contain p-3" />
                   </div>
@@ -283,10 +293,20 @@ export default function Home() {
                     </p>
                     <a href="#" className="inline-block mt-4 text-blue-600 font-semibold text-sm">Read More</a>
                   </div>
-                </div>
+                </motion.div>
 
                 {/* SKYNET Retail */}
-                <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden">
+                <motion.div
+                  whileHover={{ y: -6, scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  onClick={() => setActiveProductTab('retail')}
+                  role="button"
+                  tabIndex={0}
+                  onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') setActiveProductTab('retail'); }}
+                  className={`bg-white rounded-2xl border border-gray-200 overflow-hidden cursor-pointer shadow-sm transition-all will-change-transform ${
+                    activeProductTab === 'retail' ? 'ring-2 ring-blue-500/60 shadow-lg' : 'hover:shadow-xl'
+                  }`}
+                >
                   <div className="aspect-[4/3] bg-white flex items-center justify-center">
                     <img src="assets/skynet-retail.png" alt="SKYNET Retail" className="w-full h-full object-contain p-3" />
                   </div>
@@ -296,10 +316,20 @@ export default function Home() {
                     </p>
                     <a href="#" className="inline-block mt-4 text-blue-600 font-semibold text-sm">Read More</a>
                   </div>
-                </div>
+                </motion.div>
 
                 {/* HEALTHCARE IMS */}
-                <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden">
+                <motion.div
+                  whileHover={{ y: -6, scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  onClick={() => setActiveProductTab('health')}
+                  role="button"
+                  tabIndex={0}
+                  onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') setActiveProductTab('health'); }}
+                  className={`bg-white rounded-2xl border border-gray-200 overflow-hidden cursor-pointer shadow-sm transition-all will-change-transform ${
+                    activeProductTab === 'health' ? 'ring-2 ring-blue-500/60 shadow-lg' : 'hover:shadow-xl'
+                  }`}
+                >
                   <div className="aspect-[4/3] bg-white flex items-center justify-center">
                     <img src="assets/healthcare-ims.png" alt="HEALTHCARE IMS" className="w-full h-full object-contain p-3" />
                   </div>
@@ -309,10 +339,20 @@ export default function Home() {
                     </p>
                     <a href="#" className="inline-block mt-4 text-blue-600 font-semibold text-sm">Read More</a>
                   </div>
-                </div>
+                </motion.div>
 
                 {/* STARS IMS */}
-                <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden">
+                <motion.div
+                  whileHover={{ y: -6, scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  onClick={() => setActiveProductTab('stars')}
+                  role="button"
+                  tabIndex={0}
+                  onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') setActiveProductTab('stars'); }}
+                  className={`bg-white rounded-2xl border border-gray-200 overflow-hidden cursor-pointer shadow-sm transition-all will-change-transform ${
+                    activeProductTab === 'stars' ? 'ring-2 ring-blue-500/60 shadow-lg' : 'hover:shadow-xl'
+                  }`}
+                >
                   <div className="aspect-[4/3] bg-white flex items-center justify-center">
                     <img src="assets/stars-ims.png" alt="STARS IMS" className="w-full h-full object-contain p-3" />
                   </div>
@@ -322,7 +362,7 @@ export default function Home() {
                     </p>
                     <a href="#" className="inline-block mt-4 text-blue-600 font-semibold text-sm">Read More</a>
                   </div>
-                </div>
+                </motion.div>
               </div>
             </div>
           </section>
