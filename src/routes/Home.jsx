@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { useState } from 'react';
 import Navbar from '../components/Navbar.jsx';
 import Footer from '../components/Footer.jsx';
 import Slider from 'react-slick';
@@ -6,6 +7,14 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
 export default function Home() {
+  const [activeProductTab, setActiveProductTab] = useState('pro');
+  const productTabs = [
+    { id: 'pro', label: 'SKYNET Pro' },
+    { id: 'retail', label: 'SKYNET Retail' },
+    { id: 'health', label: 'HEALTHCARE IMS' },
+    { id: 'stars', label: 'STARS IMS' },
+  ];
+  const activeProductIndex = productTabs.findIndex(t => t.id === activeProductTab);
   const settings = {
     dots: false,
     infinite: true,
@@ -234,22 +243,31 @@ export default function Home() {
 
               {/* Tabs */}
               <div className="mt-8">
-                <div className="flex items-center justify-between text-xs sm:text-sm text-gray-600">
-                  <button id="tab-pro" className="relative px-3 sm:px-4 py-2 font-medium text-blue-600">
-                    SKYNET Pro
-                    <span className="absolute left-0 right-0 -bottom-1 h-[3px] bg-blue-500 rounded-full" />
-                  </button>
-                  <button id="tab-retail" className="px-3 sm:px-4 py-2 font-medium hover:text-blue-600 transition-colors">
-                    SKYNET Retail
-                  </button>
-                  <button id="tab-health" className="px-3 sm:px-4 py-2 font-medium hover:text-blue-600 transition-colors">
-                    HEALTHCARE IMS
-                  </button>
-                  <button id="tab-stars" className="px-3 sm:px-4 py-2 font-medium hover:text-blue-600 transition-colors">
-                    STARS IMS
-                  </button>
+                <div className="relative border-b border-gray-200">
+                  <div className="flex text-xs sm:text-sm text-gray-600">
+                    {productTabs.map((tab) => (
+                      <button
+                        key={tab.id}
+                        onClick={() => setActiveProductTab(tab.id)}
+                        className={`flex-1 px-3 sm:px-4 py-2 font-medium transition-colors ${
+                          activeProductTab === tab.id ? 'text-blue-600' : 'hover:text-blue-600'
+                        }`}
+                      >
+                        {tab.label}
+                      </button>
+                    ))}
+                  </div>
+                  <motion.div
+                    className="absolute bottom-[-1px] h-[3px] bg-blue-500 rounded-full"
+                    initial={false}
+                    animate={{
+                      left: `${(activeProductIndex / productTabs.length) * 100}%`,
+                      width: `${100 / productTabs.length}%`,
+                    }}
+                    transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+                    style={{ left: 0, width: `${100 / productTabs.length}%` }}
+                  />
                 </div>
-                <div className="h-[2px] bg-gray-200 mt-2" />
               </div>
 
               {/* Cards */}
