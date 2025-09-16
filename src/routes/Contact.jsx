@@ -3,10 +3,13 @@ import Navbar from '../components/Navbar.jsx'
 import Footer from '../components/Footer.jsx'
 import hero from '../assets/sky-logo.png'
 import { motion } from 'framer-motion'
+import emailjs from '@emailjs/browser'
 
 export default function Contact() {
   const [form, setForm] = useState({
+    title: '',
     name: '',
+    email: '',
     businessType: '',
     contactNumber: '',
     location: '',
@@ -22,16 +25,34 @@ export default function Contact() {
     e.preventDefault()
     setStatus('submitting')
     setError('')
+
     try {
-      const res = await fetch((import.meta.env.VITE_API_BASE_URL || '') + '/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form),
-      })
-      if (!res.ok) throw new Error('Failed')
+      await emailjs.send(
+        'service_orkiim9',       // your service ID
+        'template_vf7fkmq',      // your template ID
+        {
+          title: form.title,
+          name: form.name,
+          email: form.email,
+          contactNumber: form.contactNumber,
+          businessType: form.businessType,
+          location: form.location,
+          message: form.message,
+        },
+        'G4uH0YYjdNW_C6WoI'      // your public key
+      )
       setStatus('success')
-      setForm({ name: '', businessType: '', contactNumber: '', location: '', message: '' })
+      setForm({
+        title: '',
+        name: '',
+        email: '',
+        businessType: '',
+        contactNumber: '',
+        location: '',
+        message: '',
+      })
     } catch (err) {
+      console.error(err)
       setStatus('error')
       setError('Something went wrong. Please try again.')
     }
@@ -45,7 +66,7 @@ export default function Contact() {
     <div className="min-h-full flex flex-col">
       <Navbar />
       <main className="flex-1">
-        {/* Hero with on-image headline */}
+        {/* Hero */}
         <section className="relative">
           <div className="h-[220px] sm:h-[300px] md:h-[380px] lg:h-[420px] w-full overflow-hidden">
             <img src={hero} alt="Contact hero" className="h-full w-full object-cover" />
@@ -65,7 +86,7 @@ export default function Contact() {
           </div>
         </section>
 
-        {/* Overlapping intro card */}
+        {/* Intro */}
         <section className="container-width px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -88,7 +109,6 @@ export default function Contact() {
               and we’ll work with you to craft the right digital solution. Fill out the form, send us an email, or
               give us a call and let’s take the first step toward building your digital future.
             </p>
-            
           </motion.div>
         </section>
 
@@ -115,7 +135,7 @@ export default function Contact() {
               />
             </motion.div>
 
-            {/* Quotation Form */}
+            {/* Form */}
             <motion.form
               ref={formRef}
               onSubmit={onSubmit}
@@ -129,6 +149,16 @@ export default function Contact() {
               <div className="mt-5 grid grid-cols-1 gap-4">
                 <div>
                   <input
+                    name="title"
+                    placeholder="Subject"
+                    value={form.title}
+                    onChange={onChange}
+                    required
+                    className="w-full rounded-md border border-slate-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-sky-500"
+                  />
+                </div>
+                <div>
+                  <input
                     name="name"
                     placeholder="Name"
                     value={form.name}
@@ -139,10 +169,12 @@ export default function Contact() {
                 </div>
                 <div>
                   <input
-                    name="businessType"
-                    placeholder="Business Type"
-                    value={form.businessType}
+                    type="email"
+                    name="email"
+                    placeholder="Email"
+                    value={form.email}
                     onChange={onChange}
+                    required
                     className="w-full rounded-md border border-slate-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-sky-500"
                   />
                 </div>
@@ -151,6 +183,15 @@ export default function Contact() {
                     name="contactNumber"
                     placeholder="Contact Number"
                     value={form.contactNumber}
+                    onChange={onChange}
+                    className="w-full rounded-md border border-slate-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-sky-500"
+                  />
+                </div>
+                <div>
+                  <input
+                    name="businessType"
+                    placeholder="Business Type"
+                    value={form.businessType}
                     onChange={onChange}
                     className="w-full rounded-md border border-slate-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-sky-500"
                   />
@@ -196,6 +237,3 @@ export default function Contact() {
     </div>
   )
 }
-
-
-

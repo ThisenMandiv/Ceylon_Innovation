@@ -121,32 +121,32 @@ export default function Navbar() {
             {isProductsOpen && (
               <div className="absolute left-0 mt-2 w-64 bg-white/90 backdrop-blur border border-gray-100 rounded-2xl shadow-lg z-50 p-2">
                 <NavLink
-                  to="/products/software"
+                  to="/skynet-pro"
                   className="block px-4 py-2 text-base text-gray-800 hover:bg-blue-50 hover:text-blue-600 rounded-lg"
                   onClick={() => setIsProductsOpen(false)}
                 >
-                  • Software
+                  • SkynetPro
                 </NavLink>
                 <NavLink
-                  to="/products/hardware"
+                  to="/skynet-retail"
                   className="block px-4 py-2 text-base text-gray-800 hover:bg-blue-50 hover:text-blue-600 rounded-lg"
                   onClick={() => setIsProductsOpen(false)}
                 >
-                  • Hardware
+                  • SkynetRetail
                 </NavLink>
                 <NavLink
-                  to="/products/ai-solutions"
+                  to="/healthcare-ims"
                   className="block px-4 py-2 text-base text-gray-800 hover:bg-blue-50 hover:text-blue-600 rounded-lg"
                   onClick={() => setIsProductsOpen(false)}
                 >
-                  • AI Solutions
+                  • HealthCareIMS
                 </NavLink>
                 <NavLink
-                  to="/products/consulting"
+                  to="/stars-ims"
                   className="block px-4 py-2 text-base text-gray-800 hover:bg-blue-50 hover:text-blue-600 rounded-lg"
                   onClick={() => setIsProductsOpen(false)}
                 >
-                  • Consulting
+                  • StarsIMS
                 </NavLink>
               </div>
             )}

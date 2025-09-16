@@ -46,7 +46,7 @@ export default function Careers() {
       <main className="flex-1">
         {/* Hero */}
         <section className="relative">
-          <div className="h-[240px] sm:h-[320px] md:h-[420px] lg:h-[520px] w-full overflow-hidden mt-5">
+          <div className="h-[240px] sm:h-[320px] md:h-[420px] lg:h-[520px] w-full overflow-hidden mt-30">
             <img
               src={heroImg}
               alt="Ceylon Innovation Team"

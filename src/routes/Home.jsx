@@ -1,5 +1,7 @@
-import { motion } from 'framer-motion';
+
 import { useState, useEffect } from 'react';
+import { motion, useAnimation } from 'framer-motion';
+import { useRef } from 'react'; // add useRef to existing React import
 
 import Navbar from '../components/Navbar.jsx';
 import Footer from '../components/Footer.jsx';
@@ -9,9 +11,91 @@ import 'slick-carousel/slick/slick-theme.css';
 import { Link } from "react-router-dom";
 import CountUp from 'react-countup';
 
+const useScrollAnimation = (threshold = 0.3) => {
+  const controls = useAnimation();
+  const ref = useRef(null);
+  const [isVisible, setIsVisible] = useState(false);
+  const scrollTimeoutRef = useRef(null);
 
+  useEffect(() => {
+    const element = ref.current;
+    if (!element) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsVisible(entry.isIntersecting);
+        if (entry.isIntersecting) {
+          controls.start("visible");
+        } else {
+          controls.start("hidden");
+        }
+      },
+      { threshold }
+    );
+
+    observer.observe(element);
+
+    const handleScroll = () => {
+      if (scrollTimeoutRef.current) {
+        clearTimeout(scrollTimeoutRef.current);
+      }
+
+      if (isVisible) {
+        controls.start("scrolling");
+      }
+
+      scrollTimeoutRef.current = setTimeout(() => {
+        if (isVisible) {
+          controls.start("static");
+        }
+      }, 150);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+
+    return () => {
+      observer.disconnect();
+      window.removeEventListener('scroll', handleScroll);
+      if (scrollTimeoutRef.current) {
+        clearTimeout(scrollTimeoutRef.current);
+      }
+    };
+  }, [controls, threshold, isVisible]);
+
+  return { ref, controls };
+};
+const slideUpVariants = {
+  hidden: { 
+    opacity: 0,
+    y: 50  // Slide up from the bottom
+  },
+  visible: { 
+    opacity: 1,
+    y: 0, 
+    transition: { duration: 0.8, ease: "easeOut" } 
+  },
+  scrolling: { 
+    opacity: 1,
+    y: [0, -8, 0], // More pronounced bounce
+    transition: { 
+      duration: 1, 
+      ease: "easeInOut",
+      repeat: Infinity,
+      repeatType: "loop"
+    } 
+  },
+  static: { 
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.4, ease: "easeOut" }
+  }
+};
 export default function Home() {
   const [showPopup, setShowPopup] = useState(false);
+  const featuresAnimation = useScrollAnimation(0.3);
+const productsAnimation = useScrollAnimation(0.3);
+const sliderAnimation = useScrollAnimation(0.3);
+const transformAnimation = useScrollAnimation(0.3);
 
   const [activeProductTab, setActiveProductTab] = useState('pro');
   const productTabs = [
@@ -59,7 +143,7 @@ export default function Home() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowPopup(true);
-    }, 3000); // 3000ms = 3 seconds
+    }, 5000); // 3000ms = 3 seconds
   
     return () => clearTimeout(timer); // clean up
   }, []);
@@ -172,7 +256,7 @@ export default function Home() {
         {/* Years Innovation */}
         <div>
           <div className="text-2xl sm:text-3xl md:text-6xl font-semibold text-white mb-2">
-            <CountUp start={0} end={10} duration={4} />+
+            <CountUp start={0} end={10} duration={6} />+
           </div>
           <div className="text-xs sm:text-sm md:text-base text-gray-300">
             Years Innovation
@@ -188,7 +272,13 @@ export default function Home() {
         {/* Content wrapper with responsive padding */}
         <div className="px-4 sm:px-8 md:px-16 lg:px-[3cm] mt-20">
           {/* Features Section - Updated styling */}
-          <section className="bg-white max-w-7xl mx-auto py-12 md:py-16">
+          <motion.section 
+  ref={featuresAnimation.ref}
+  animate={featuresAnimation.controls}
+  variants={slideUpVariants} 
+  
+  initial="hidden"
+  className="bg-white max-w-7xl mx-auto py-12 md:py-16">
             <div className="flex flex-col lg:flex-row items-start justify-between mb-8 md:mb-12">
               <div className="lg:max-w-200 mb-6 lg:mb-0">
                 <h1 className="text-xl sm:text-2xl md:text-4xl font-semibold text-gray-900 mb-4 leading-tight"
@@ -323,16 +413,17 @@ export default function Home() {
               </div>
             </section>
 
-          </section>
+          </motion.section>
 
           {/* Products Section - Tabbed layout matching design */}
-          <section className="bg-white max-w-7xl mx-auto py-12 md:py-16 mt-[-100px] relative z-10">
+          <motion.section 
+  ref={productsAnimation.ref}
+  animate={productsAnimation.controls}
+  variants={slideUpVariants} 
+  initial="hidden"
+  className="bg-white max-w-7xl mx-auto py-12 md:py-16 mt-[-100px] relative z-10">
             <div className="px-4 sm:px-6 md:px-8 w-full py-10 rounded-3xl">
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8 }}
-                className="text-center mb-3"
+              <div className="text-center mb-3"
               >
                 <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 leading-tight">
                   Our <span className="text-cyan-500">Products</span>
@@ -340,7 +431,7 @@ export default function Home() {
                 <p className="text-gray-600 text-sm md:text-base mt-3">
                   We have many products For You with Affordable Price
                 </p>
-              </motion.div>
+              </div>
 
               {/* Tabs */}
               <div className="mt-8">
@@ -466,10 +557,15 @@ export default function Home() {
                 </motion.div>
               </div>
             </div>
-          </section>
+          </motion.section>
 
           {/* Enhanced Superb Slider Section - Responsive improvements */}
-          <section className="bg-gradient-to-br from-gray-50 via-white to-blue-50/30 max-w-7xl mx-auto py-12 sm:py-16 md:py-20 relative overflow-hidden">
+          <motion.section 
+  ref={sliderAnimation.ref}
+  animate={sliderAnimation.controls}
+  variants={slideUpVariants} 
+  initial="hidden"
+  className="bg-gradient-to-br from-gray-50 via-white to-blue-50/30 max-w-7xl mx-auto py-12 sm:py-16 md:py-20 relative overflow-hidden">
            {/* Dotted World Map Background */}
            <div className="absolute inset-0 opacity-5">
               <svg width="100%" height="100%" viewBox="0 0 1200 600" className="w-full h-full">
@@ -489,16 +585,14 @@ export default function Home() {
               </svg>
             </div>
             <div className="relative z-10">
-              <motion.div
-               initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8 }}
+              <div
+               
                 className="text-center mb-8 sm:mb-12 md:mb-16 px-4"
               >
                 <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-4 leading-tight">
                   Organizations Achieving Growth Using Our Product Solutions
                 </h2>
-              </motion.div>
+              </div>
 
               <div className="mx-auto max-w-7xl relative">
                 <style jsx>{`
@@ -792,10 +886,15 @@ export default function Home() {
                 </div>
               </div>
             </div>
-          </section>
+          </motion.section>
 
 {/* Ready to Transform Your Business Section */}
-<section className="bg-white py-16 md:py-20 rounded-3xl relative overflow-hidden mb-16">
+<motion.section 
+  ref={transformAnimation.ref}
+  animate={transformAnimation.controls}
+  variants={slideUpVariants} 
+  initial="hidden"
+  className="bg-white py-16 md:py-20 rounded-3xl relative overflow-hidden mb-16">
   {/* Background decorative elements */}
   <div className="absolute inset-0 overflow-hidden">
     <div className="absolute top-10 left-10 w-32 h-32 bg-blue-500/10 rounded-full blur-xl"></div>
@@ -806,11 +905,7 @@ export default function Home() {
   <div className="relative z-10 px-4 sm:px-6 md:px-8">
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
       {/* Left Content */}
-      <motion.div
-        initial={{ opacity: 0, x: -30 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.8 }}
-        className="text-gray-800"
+      <div className="text-gray-800"
       >
         <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-6 leading-tight">
           Ready To Transform Your Business?
@@ -821,14 +916,10 @@ export default function Home() {
         <button className="bg-blue-500 hover:bg-blue-600 text-white px-8 py-3 rounded-full font-semibold transition-colors">
           Let's Discuss
         </button>
-      </motion.div>
+      </div>
 
       {/* Right Image */}
-      <motion.div
-        initial={{ opacity: 0, x: 30 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.8, delay: 0.2 }}
-        className="relative"
+      <div className="relative"
       >
         <div className="relative rounded-2xl overflow-hidden shadow-2xl">
           <img 
@@ -847,10 +938,10 @@ export default function Home() {
         {/* Decorative floating elements */}
         
         <div className="absolute -bottom-6 -left-6 w-12 h-12 bg-blue-500/30 rounded-full blur-sm"></div>
-      </motion.div>
+      </div>
     </div>
   </div>
-</section>
+</motion.section>
         </div>
       </main>
       {showPopup && (
