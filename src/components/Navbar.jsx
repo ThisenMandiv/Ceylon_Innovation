@@ -275,11 +275,11 @@ export default function Navbar() {
                   • Charity
                 </NavLink>
                 <NavLink
-                  to="/more/partner"
+                  to="/more/partners"
                   className="block px-4 py-2 text-base text-gray-800 hover:bg-blue-50 hover:text-blue-600 rounded-lg"
                   onClick={() => setIsMoreOpen(false)}
                 >
-                  • Partner
+                  • Partners
                 </NavLink>
               </div>
             )}
@@ -462,11 +462,11 @@ export default function Navbar() {
                       Charity
                     </NavLink>
                     <NavLink
-                      to="/more/partner"
+                      to="/more/partners"
                       className={mobileNavLinkClass}
                       onClick={toggleMobileMenu}
                     >
-                      Partner
+                      Partners
                     </NavLink>
                   </div>
                 )}

@@ -9,6 +9,8 @@ import Careers from './routes/Careers';
 import Contact from './routes/Contact';
 import NotFound from './routes/NotFound';
 import Charity from './routes/Charity';
+import Partners from './routes/Partners';
+
 
 // Domain pages
 import Healthcare from './routes/Healthcare';
@@ -42,6 +44,7 @@ export const router = createBrowserRouter([
       { path: 'more/careers', element: <Careers /> },
       { path: 'contact', element: <Contact /> },
       { path: 'more/charity', element: <Charity /> },
+      { path: 'more/partners', element: <Partners /> },
 
       // Domain sub-routes
       { path: 'domain/healthcare', element: <Healthcare /> },
