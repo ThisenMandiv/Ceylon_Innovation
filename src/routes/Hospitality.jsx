@@ -76,7 +76,7 @@ export default function Hospitality() {
           {/* Header */}
           <div className="text-center mb-12 sm:mb-16">
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-4 sm:mb-6">
-            Hospitality
+            Hotel
             </h1>
             <p className="text-base sm:text-lg text-gray-600 max-w-4xl mx-auto leading-relaxed px-4">
               The SKYNET Software For Patient Management, Billing & Finance, Pharmacy 

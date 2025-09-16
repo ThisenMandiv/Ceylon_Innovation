@@ -1,5 +1,6 @@
 import React from 'react';
 import { FaFacebook, FaLinkedin, FaInstagram, FaTwitter } from 'react-icons/fa';
+import logo from '../assets/ceylon-innovation-logo.png'
 
 export default function Footer() {
   return (
@@ -41,7 +42,7 @@ export default function Footer() {
 
         {/* Logo and Social Media Section */}
         <div className="flex flex-col items-start md:items-end">
-          <img src="assets/ceylon-innovation-logo.png" alt="Ceylon Innovation Logo" className="h-16 mb-4" />
+          <img src={logo} alt="Ceylon Innovation Logo" className="h-16 mb-4" />
           <div className="flex space-x-4">
             <a href="https://web.facebook.com/CeylonInnovation?_rdc=1&_rdr" aria-label="Facebook" className="text-gray-400 hover:text-blue-500">
               <FaFacebook size={24} />

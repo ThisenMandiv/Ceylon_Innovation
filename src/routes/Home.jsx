@@ -1,14 +1,18 @@
 import { motion } from 'framer-motion';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+
 import Navbar from '../components/Navbar.jsx';
 import Footer from '../components/Footer.jsx';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { Link } from "react-router-dom";
+import CountUp from 'react-countup';
 
 
 export default function Home() {
+  const [showPopup, setShowPopup] = useState(false);
+
   const [activeProductTab, setActiveProductTab] = useState('pro');
   const productTabs = [
     { id: 'pro', label: 'SKYNET Pro' },
@@ -52,7 +56,14 @@ export default function Home() {
       },
     ],
   };
-
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowPopup(true);
+    }, 3000); // 3000ms = 3 seconds
+  
+    return () => clearTimeout(timer); // clean up
+  }, []);
+  
   return (
     <div className="min-h-full flex flex-col bg-white">
       {/* Floating Navbar - Responsive positioning */}
@@ -68,8 +79,10 @@ export default function Home() {
             <source src="/landing.mp4" type="video/mp4" />
           </video>
 
+          {/* Transparent black square overlay - covers full hero section, behind content */}
+          <div className="absolute inset-0 w-full h-full bg-black/40 z-10 pointer-events-none"></div>
+
           {/* Background with overlay */}
-        
           {/* Decorative elements */}
           <div className="absolute inset-0 overflow-hidden rounded-b-[3rem] md:rounded-b-[4rem]">
             <div className="absolute top-20 left-10 w-32 h-32 bg-blue-500/10 rounded-full blur-xl"></div>
@@ -78,38 +91,47 @@ export default function Home() {
           </div>
 
           {/* Hero Content - Centered and updated */}
-          <div className="absolute inset-0 flex items-center justify-center">
+          <div className="absolute inset-0 flex items-center justify-center z-20 top-[-100px]">
             <div className="px-4 sm:px-8 md:px-16 lg:px-[3cm] w-full">
-              <div className="max-w-4xl mx-auto text-center transform translate-y-12"style={{ height: '500px' }}>
-              <motion.h1 
-  className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl font-bold text-white mb-4 sm:mb-6 leading-tight"
-  initial={{ opacity: 0, y: 30 }}
-  animate={{ opacity: 1, y: 0 }}
-  transition={{ duration: 0.8 }}
->
-  Innovate <span className="text-cyan-400">Your Business Future</span> With<br />
-  Ceylon Innovation
-</motion.h1>
+              <div className="max-w-7xl mx-auto text-center transform translate-y-12" style={{ height: '500px' }}>
+                <motion.h1 
+                  className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-4 sm:mb-6 leading-tight"
+                  style={{ fontFamily: 'Roboto, sans-serif' }}
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8 }}
+                >
+                  Innovate Your Business Future With<br />
+                  <span className="text-cyan-400">Ceylon Innovation</span>
+                </motion.h1>
                 
                 <motion.p 
-                  className="text-base sm:text-lg md:text-xl text-white/90 mb-6 sm:mb-8 leading-relaxed max-w-2xl mx-auto"
+                  className="text-base sm:text-lg md:text-xl text-white/90 mb-6 sm:mb-8 leading-relaxed max-w-4xl mx-auto"
+                  style={{ fontFamily: 'Poppins, sans-serif' }}
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.8, delay: 0.2 }}
                 >
-                  We Provide Cutting-Edge Technology Solutions Tailored To Your Business Needs. From ERP System To Mobile Apps, We've Got You Covered
+                  We Provide Cutting-Edge Technology Solutions Tailored To Your Business Needs. From ERP <br /> System To Mobile Apps, We've Got You Covered
                 </motion.p>
                 
                 <motion.div 
-                  className="flex flex-col sm:flex-row gap-3 sm:gap-4 mb-12 sm:mb-16 justify-center"
+                  className="flex flex-col sm:flex-row gap-3 sm:gap-4 mb-12 sm:mb-16 justify-center mt-20 w-full"
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.8, delay: 0.4 }}
                 >
-                  <button className="bg-gray-500/50 hover:bg-gray-600 text-white px-4 sm:px-6 py-2.5 rounded-full font-semibold transition-colors text-sm sm:text-base">
-                    &lt;&gt; Start Your Project
+                  <button
+                    className="w-full sm:w-auto bg-gradient-to-r from-blue-500 via-blue-400 to-cyan-300 hover:from-blue-600 hover:to-cyan-400 text-white px-4 sm:px-6 py-4 rounded-full font-regular transition-colors text-md sm:text-base"
+                    style={{ fontFamily: 'Poppins, sans-serif' }}
+                  >
+                    &lt; &gt; Start Your Project
                   </button>
-                  <button className="text-white hover:text-gray-300 px-6 sm:px-8 py-3 rounded-lg font-semibold transition-colors flex items-center justify-center gap-2 text-sm sm:text-base border border-none">
+
+                  <button
+                    className="w-full sm:w-auto hover:to-cyan-400 text-white hover:text-gray-300 px-6 sm:px-8 py-3 rounded-lg font-regular transition-colors flex items-center justify-center gap-5 text-md sm:text-base border border-none"
+                    style={{ fontFamily: 'Poppins, sans-serif' }}
+                  >
                     Explore Services &rarr;
                   </button>
                 </motion.div>
@@ -117,118 +139,195 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Statistics Panel - Updated Design: Black BG, White Text, Centered, Bottom */}
-          <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 z-40 w-full max-w-4xl px-4">
-            <motion.div 
-              className="bg-black/90 backdrop-blur-md rounded-2xl shadow-2xl border border-white/10"
-              initial={{ opacity: 0, y: 50 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.6 }}
-            >
-              <div className="px-6 py-8">
-                <div className="grid grid-cols-3 gap-8 text-center">
-                  <div>
-                    <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-2">1000+</div>
-                    <div className="text-xs sm:text-sm md:text-base text-gray-300">Software Installations</div>
-                  </div>
-                  <div>
-                    <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-2">25+</div>
-                    <div className="text-xs sm:text-sm md:text-base text-gray-300">Software Developers</div>
-                  </div>
-                  <div>
-                    <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-2">10+</div>
-                    <div className="text-xs sm:text-sm md:text-base text-gray-300">Years Innovation</div>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
+{/* Statistics Panel - Updated Design: Black BG, White Text, Centered, Bottom */}
+<div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 z-40 w-full max-w-4xl px-4">
+  <motion.div 
+    initial={{ opacity: 0, y: 50 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.8, delay: 0.6 }}
+  >
+    <div className="px-6 py-8">
+      <div className="grid grid-cols-3 gap-8 text-center mb-15">
+        
+        {/* Software Installations */}
+        <div>
+          <div className="text-3xl sm:text-3xl md:text-6xl font-semibold text-white mb-2">
+            <CountUp start={0} end={1000} duration={2.5} separator="," />+
           </div>
-        </section>
+          <div className="text-xs sm:text-sm md:text-base text-gray-300">
+            Software Installations
+          </div>
+        </div>
+
+        {/* Software Developers */}
+        <div>
+          <div className="text-2xl sm:text-3xl md:text-6xl font-semibold text-white mb-2">
+            <CountUp start={0} end={25} duration={4} />+
+          </div>
+          <div className="text-xs sm:text-sm md:text-base text-gray-300">
+            Software Developers
+          </div>
+        </div>
+
+        {/* Years Innovation */}
+        <div>
+          <div className="text-2xl sm:text-3xl md:text-6xl font-semibold text-white mb-2">
+            <CountUp start={0} end={10} duration={4} />+
+          </div>
+          <div className="text-xs sm:text-sm md:text-base text-gray-300">
+            Years Innovation
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </motion.div>
+</div>
+    </section>
       
         {/* Content wrapper with responsive padding */}
         <div className="px-4 sm:px-8 md:px-16 lg:px-[3cm] mt-20">
           {/* Features Section - Updated styling */}
           <section className="bg-white max-w-7xl mx-auto py-12 md:py-16">
             <div className="flex flex-col lg:flex-row items-start justify-between mb-8 md:mb-12">
-              <div className="lg:max-w-md mb-6 lg:mb-0">
-                <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900 mb-4 leading-tight">
-                  <span className="text-cyan-500">Innovative Features</span> Our Company Delivers To You
-                </h2>
+              <div className="lg:max-w-200 mb-6 lg:mb-0">
+                <h1 className="text-xl sm:text-2xl md:text-4xl font-semibold text-gray-900 mb-4 leading-tight"
+                 style={{ fontFamily: 'Roboto, sans-serif' }}>
+                  <span className="text-cyan-500">Innovative Features</span> Our Company <br />Delivers To You
+                </h1>
               </div>
-              <div className="text-gray-600 text-sm md:text-base lg:max-w-md">
+              <div className="text-gray-500 text-xl lg:max-w-md">
                 We Always Take Care Of Our Clients. Comfort Of Our Clients With Technology And Innovation
               </div>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
-              {/* Responsibility Card */}
-              <motion.div
-                className="bg-white rounded-2xl p-4 sm:p-6 md:p-8 shadow-sm border border-gray-100 hover:shadow-lg transition-shadow"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.1 }}
-              >
-                <div className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 bg-blue-100 rounded-2xl flex items-center justify-center mb-3 sm:mb-4 md:mb-6">
-                  <svg className="w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                  </svg>
-                </div>
-                <h3 className="text-base sm:text-lg md:text-xl font-bold text-gray-900 mb-2 sm:mb-3 md:mb-4">Responsibility</h3>
-                <p className="text-gray-600 mb-3 sm:mb-4 md:mb-6 leading-relaxed text-sm md:text-base">
-                  The Responsibility Service Delivers Secure, Ethical, And Reliable IT Solutions With Accountability And Full Ownership.
-                </p>
-                <a href="#" className="text-blue-600 font-semibold hover:text-blue-700 transition-colors text-sm md:text-base">
-                  Read More
-                </a>
-              </motion.div>
+            <section className="py-20 px-8 bg-white-100">
+              <div className="flex justify-center items-center">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl w-full">
+                  
+                  {/* Responsibility Card */}
+                  <motion.div
+                    className="bg-white rounded-2xl p-6 shadow-sm hover:shadow-xl transition-shadow cursor-pointer"
+                    initial={{ opacity: 0, y: 40 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }}
+                    whileHover={{
+                      y: -10,
+                      scale: 1.04,
+                      boxShadow: "0 15px 35px rgba(33,105,176,0.15)",
+                      transition: { type: "spring", stiffness: 250, damping: 20 },
+                    }}
+                  >
+                    <div className="w-14 h-14 bg-blue-50 rounded-xl flex items-center justify-center mb-5">
+                      <svg
+                        className="w-8 h-8 text-[#2169B0]"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
+                        />
+                      </svg>
+                    </div>
+                    <h3 className="text-lg font-semibold text-gray-900 mb-3">Responsibility</h3>
+                    <p className="text-gray-500 text-base leading-7 mb-5">
+                      We take full responsibility in delivering secure, ethical, and reliable IT
+                      solutions. Every project is handled with accountability, transparency,
+                      and complete ownership, ensuring that our clients receive nothing less
+                      than excellence.
+                    </p>
+                    
+                  </motion.div>
 
-              {/* Bespoke Card */}
-              <motion.div
-                className="bg-white rounded-2xl p-4 sm:p-6 md:p-8 shadow-sm border border-gray-100 hover:shadow-lg transition-shadow"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2 }}
-              >
-                <div className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 bg-blue-100 rounded-2xl flex items-center justify-center mb-3 sm:mb-4 md:mb-6">
-                  <svg className="w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-                  </svg>
-                </div>
-                <h3 className="text-base sm:text-lg md:text-xl font-bold text-gray-900 mb-2 sm:mb-3 md:mb-4">Bespoke</h3>
-                <p className="text-gray-600 mb-3 sm:mb-4 md:mb-6 leading-relaxed text-sm md:text-base">
-                  Ceylon Innovation Bespoke Service Delivers Customized IT Solutions Creating Unique Systems Aligned With Client Needs And Goals.
-                </p>
-                <a href="#" className="text-blue-600 font-semibold hover:text-blue-700 transition-colors text-sm md:text-base">
-                  Read More
-                </a>
-              </motion.div>
+                  {/* Bespoke Card */}
+                  <motion.div
+                    className="bg-white rounded-2xl p-6 shadow-sm hover:shadow-xl transition-shadow cursor-pointer"
+                    initial={{ opacity: 0, y: 40 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, ease: "easeOut", delay: 0.2 }}
+                    whileHover={{
+                      y: -10,
+                      scale: 1.04,
+                      boxShadow: "0 15px 35px rgba(33,105,176,0.15)",
+                      transition: { type: "spring", stiffness: 250, damping: 20 },
+                    }}
+                  >
+                    <div className="w-14 h-14 bg-blue-50 rounded-xl flex items-center justify-center mb-5">
+                      <svg
+                        className="w-8 h-8 text-[#2169B0]"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
+                        />
+                      </svg>
+                    </div>
+                    <h3 className="text-lg font-semibold text-gray-900 mb-3">Bespoke</h3>
+                    <p className="text-gray-600 text-base leading-7 mb-5">
+                      Every business is unique, and so are our solutions. We design and
+                      develop custom IT systems that align seamlessly with your goals,
+                      workflows, and long-term vision. From tailored applications to
+                      specialized integrations.
+                    </p>
+                    
+                  </motion.div>
 
-              {/* Innovation Card */}
-              <motion.div
-                className="bg-white rounded-2xl p-4 sm:p-6 md:p-8 shadow-sm border border-gray-100 hover:shadow-lg transition-shadow sm:col-span-2 lg:col-span-1"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3 }}
-              >
-                <div className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 bg-blue-100 rounded-2xl flex items-center justify-center mb-3 sm:mb-4 md:mb-6">
-                  <svg className="w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                  </svg>
+                  {/* Innovation Card */}
+                  <motion.div
+                    className="bg-white rounded-2xl p-6 shadow-sm hover:shadow-xl transition-shadow cursor-pointer"
+                    initial={{ opacity: 0, y: 40 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, ease: "easeOut", delay: 0.3 }}
+                    whileHover={{
+                      y: -10,
+                      scale: 1.04,
+                      boxShadow: "0 15px 35px rgba(33,105,176,0.15)",
+                      transition: { type: "spring", stiffness: 250, damping: 20 },
+                    }}
+                  >
+                    <div className="w-14 h-14 bg-blue-50 rounded-xl flex items-center justify-center mb-5">
+                      <svg
+                        className="w-8 h-8 text-[#2169B0]"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M13 10V3L4 14h7v7l9-11h-7z"
+                        />
+                      </svg>
+                    </div>
+                    <h3 className="text-lg font-semibold text-gray-900 mb-3">Innovation Service</h3>
+                    <p className="text-gray-600 text-base leading-7 mb-5">
+                      We thrive on innovation by blending creativity with cutting-edge
+                      technology. Our solutions are designed to be future-ready, leveraging
+                      the latest tools, frameworks, and best practices in the industry. We
+                      bring fresh ideas to every project.
+                    </p>
+                   
+                  </motion.div>
+
                 </div>
-                <h3 className="text-base sm:text-lg md:text-xl font-bold text-gray-900 mb-2 sm:mb-3 md:mb-4">Innovation Service</h3>
-                <p className="text-gray-600 mb-3 sm:mb-4 md:mb-6 leading-relaxed text-sm md:text-base">
-                  We Innovation Delivers Modern, Efficient, Future-Ready IT Solutions Through Creativity, Latest Technologies, And Industry Best Practices.
-                </p>
-                <a href="#" className="text-blue-600 font-semibold hover:text-blue-700 transition-colors text-sm md:text-base">
-                  Read More
-                </a>
-              </motion.div>
-            </div>
+              </div>
+            </section>
+
           </section>
 
           {/* Products Section - Tabbed layout matching design */}
-          <section className="bg-white max-w-7xl mx-auto py-12 md:py-16">
-            <div className="px-4 sm:px-6 md:px-8">
+          <section className="bg-white max-w-7xl mx-auto py-12 md:py-16 mt-[-100px] relative z-10">
+            <div className="px-4 sm:px-6 md:px-8 w-full py-10 rounded-3xl">
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -252,7 +351,7 @@ export default function Home() {
                         key={tab.id}
                         onClick={() => setActiveProductTab(tab.id)}
                         className={`flex-1 px-3 sm:px-4 py-2 font-medium transition-colors ${
-                          activeProductTab === tab.id ? 'text-blue-600' : 'hover:text-blue-600'
+                          activeProductTab === tab.id ? 'text-blue-400' : 'hover:text-blue-400'
                         }`}
                       >
                         {tab.label}
@@ -260,7 +359,7 @@ export default function Home() {
                     ))}
                   </div>
                   <motion.div
-                    className="absolute bottom-[-1px] h-[3px] bg-blue-500 rounded-full"
+                    className="absolute bottom-[-1.5px] h-[3.5px] bg-blue-400 rounded-full"
                     initial={false}
                     animate={{
                       left: `${(activeProductIndex / productTabs.length) * 100}%`,
@@ -273,29 +372,29 @@ export default function Home() {
               </div>
 
               {/* Cards */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8 mt-8">
-{/* SKYNET Pro */}
-<motion.div
-  whileHover={{ y: -6, scale: 1.02 }}
-  whileTap={{ scale: 0.98 }}
-  onClick={() => setActiveProductTab('pro')}
-  role="button"
-  tabIndex={0}
-  onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') setActiveProductTab('pro'); }}
-  className={`bg-white rounded-2xl border border-gray-200 overflow-hidden cursor-pointer shadow-sm transition-all will-change-transform ${
-    activeProductTab === 'pro' ? 'ring-2 ring-blue-500/60 shadow-lg' : 'hover:shadow-xl'
-  }`}
->
-  <div className="aspect-[4/3] bg-white flex items-center justify-center">
-    <img src="assets/SkynetPro.png" alt="SKYNET Pro" className="w-full h-full object-contain p-3" />
-  </div>
-  <div className="p-5">
-    <p className="text-[13px] leading-6 text-gray-600">
-      SKYNET Pro uses the latest technology to manage entire hospitality businesses efficiently. Supports big-scale operations and handles unlimited transactions seamlessly.
-    </p>
-    <Link to="/skynet-pro" className="inline-block mt-4 text-blue-600 font-semibold text-sm">Read More</Link>
-  </div>
-</motion.div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-4 mt-8">
+              {/* SKYNET Pro */}
+              <motion.div
+                whileHover={{ y: -6, scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                onClick={() => setActiveProductTab('pro')}
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') setActiveProductTab('pro'); }}
+                className={`bg-white rounded-2xl border border-gray-200 overflow-hidden cursor-pointer shadow-sm transition-all will-change-transform ${
+                  activeProductTab === 'pro' ? 'ring-2 ring-blue-500/60 shadow-lg' : 'hover:shadow-xl'
+                }`}
+              >
+                <div className="aspect-[4/3] bg-white flex items-center justify-center">
+                  <img src="assets/SkynetPro.png" alt="SKYNET Pro" className="w-full h-full object-contain p-3" />
+                </div>
+                <div className="p-5">
+                  <p className="text-[15px] leading-7 text-gray-600">
+                    SKYNET Pro uses the latest technology to manage entire hospitality businesses. Supports big-scale operations and handles unlimited transactions seamlessly.
+                  </p>
+                  <Link to="/skynet-pro" className="inline-block mt-4 text-blue-600 font-semibold text-sm">Read More</Link>
+                </div>
+              </motion.div>
 
                 {/* SKYNET Retail */}
                 <motion.div
@@ -313,10 +412,10 @@ export default function Home() {
                     <img src="assets/skynet-retail.png" alt="SKYNET Retail" className="w-full h-full object-contain p-3" />
                   </div>
                   <div className="p-5">
-                    <p className="text-[13px] leading-6 text-gray-600">
+                    <p className="text-[15px] leading-7 text-gray-600">
                       SKYNET Retail software is designed for salons, supermarkets, liquor stores, clothing stores. It enables smooth transactions and improves customer service efficiency.
                     </p>
-                    <a href="#" className="inline-block mt-4 text-blue-600 font-semibold text-sm">Read More</a>
+                    <Link to="/skynet-retail" className="inline-block mt-4 text-blue-600 font-semibold text-sm">Read More</Link>
                   </div>
                 </motion.div>
 
@@ -336,10 +435,10 @@ export default function Home() {
                     <img src="assets/healthcare-ims.png" alt="HEALTHCARE IMS" className="w-full h-full object-contain p-3" />
                   </div>
                   <div className="p-5">
-                    <p className="text-[13px] leading-6 text-gray-600">
+                    <p className="text-[15px] leading-7 text-gray-600">
                       HEALTHCARE IMS supports hospitals, clinics, labs and pharmacies of any size. Fully customizable to fit specific customer. All user data is securely stored.
                     </p>
-                    <a href="#" className="inline-block mt-4 text-blue-600 font-semibold text-sm">Read More</a>
+                    <Link to="/healthcare-ims" className="inline-block mt-4 text-blue-600 font-semibold text-sm">Read More</Link>
                   </div>
                 </motion.div>
 
@@ -359,10 +458,10 @@ export default function Home() {
                     <img src="assets/stars-ims.png" alt="STARS IMS" className="w-full h-full object-contain p-3" />
                   </div>
                   <div className="p-5">
-                    <p className="text-[13px] leading-6 text-gray-600">
+                    <p className="text-[15px] leading-7 text-gray-600">
                       STARS IMS is unique software designed for schools, tutors, colleges and universities. Built with secure technology, advanced features, and carefully tailored for education.
                     </p>
-                    <a href="#" className="inline-block mt-4 text-blue-600 font-semibold text-sm">Read More</a>
+                    <Link to="/stars-ims" className="inline-block mt-4 text-blue-600 font-semibold text-sm">Read More</Link>
                   </div>
                 </motion.div>
               </div>
@@ -754,6 +853,25 @@ export default function Home() {
 </section>
         </div>
       </main>
+      {showPopup && (
+  <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+    <div className="bg-white rounded-2xl p-4 sm:p-6 md:p-8 max-w-sm w-full relative">
+      <button
+        className="absolute top-2 right-2 text-gray-600 hover:text-gray-900 font-bold text-xl"
+        onClick={() => setShowPopup(false)}
+      >
+        &times;
+      </button>
+      <img
+        src="assets/popup-image.png" // replace with your image
+        alt="Popup"
+        className="w-full h-auto rounded-lg"
+      />
+      <p className="text-gray-700 mt-4 text-center">Check out our latest offer!</p>
+    </div>
+  </div>
+)}
+
       
       <Footer />
     </div>
