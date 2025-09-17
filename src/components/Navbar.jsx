@@ -347,32 +347,32 @@ export default function Navbar() {
                 {isProductsOpen && (
                   <div className="ml-4 mt-1 space-y-1">
                     <NavLink
-                      to="/products/software"
+                      to="/routes/skynetPro"
                       className={mobileNavLinkClass}
                       onClick={toggleMobileMenu}
                     >
-                      Software
+                      Skynet Pro
                     </NavLink>
                     <NavLink
-                      to="/products/hardware"
+                      to="/routes/skyneRetail"
                       className={mobileNavLinkClass}
                       onClick={toggleMobileMenu}
                     >
-                      Hardware
+                      Skynet Retail
                     </NavLink>
                     <NavLink
-                      to="/products/ai-solutions"
+                      to="/routes/HealthCareIMS"
                       className={mobileNavLinkClass}
                       onClick={toggleMobileMenu}
                     >
-                      AI Solutions
+                      Healthcare IMS
                     </NavLink>
                     <NavLink
-                      to="/products/consulting"
+                      to="/products/starsIMS"
                       className={mobileNavLinkClass}
                       onClick={toggleMobileMenu}
                     >
-                      Consulting
+                    Stars IMS
                     </NavLink>
                   </div>
                 )}
