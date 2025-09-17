@@ -1,6 +1,8 @@
 import { useState, useEffect, useRef } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import { Menu, X, ChevronDown } from 'lucide-react';
+import logo from '../assets/Colour_Logo.png';
+
 
 // Reusable classes
 const navLinkClass = ({ isActive }) =>
@@ -95,7 +97,7 @@ export default function Navbar() {
           <img
             src="/assets/Colour_Logo.png"
             alt="Ceylon Innovation Logo"
-            className="w-[90px] h-auto ml-1 md:ml-5 md:w-[140px]"
+            className="w-[143px] h-auto ml-5"
           />
         </NavLink>
 

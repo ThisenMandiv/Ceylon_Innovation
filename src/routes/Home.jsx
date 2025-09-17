@@ -2,6 +2,12 @@ import { useState, useEffect } from 'react';
 import { motion, useAnimation } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { useRef } from 'react';
+import SkynetPro from '../assets/skynet-pro.png';
+import SkynetRetail from '../assets/skynet-retail.png';
+import HealthcareIMS from '../assets/healthcare-ims.png';
+import StarsIMS from '../assets/stars-ims.png';
+import PopupImage from '../assets/popup-image.png';
+import TransformImage from '../assets/business-transformation.png';
 
 import Navbar from '../components/Navbar.jsx';
 import Footer from '../components/Footer.jsx';
@@ -489,7 +495,9 @@ export default function Home() {
                   >
                     <div className="aspect-[4/3] flex items-center justify-center bg-blue-50">
                       <img
-                        src="assets/SkynetPro.png"
+                        src={SkynetPro}
+                        
+                        
                         alt="SKYNET Pro"
                         className="w-5/4 h-auto object-contain p-2"
                       />
@@ -533,7 +541,7 @@ export default function Home() {
                   >
                     <div className="aspect-[4/3] flex items-center justify-center bg-blue-50">
                       <img
-                        src="assets/skynet-retail.png"
+                        src={SkynetRetail}
                         alt="SKYNET Retail"
                         className="w-5/4 h-auto object-contain p-2"
                       />
@@ -574,7 +582,7 @@ export default function Home() {
                   >
                     <div className="aspect-[4/3] flex items-center justify-center bg-blue-50">
                       <img
-                        src="assets/healthcare-ims.png"
+                        src={HealthcareIMS}
                         alt="HEALTHCARE IMS"
                         className="w-5/4 h-auto object-contain p-2"
                       />
@@ -615,7 +623,7 @@ export default function Home() {
                   >
                     <div className="aspect-[4/3] flex items-center justify-center bg-blue-50">
                       <img
-                        src="assets/stars-ims.png"
+                        src={StarsIMS}
                         alt="STARS IMS"
                         className="w-5/4 h-auto object-contain p-2"
                       />
@@ -639,68 +647,127 @@ export default function Home() {
             </div>
           </motion.section>
 
-          {/* Enhanced Superb Slider Section */}
-          <motion.section 
-            ref={sliderAnimation.ref}
-            animate={sliderAnimation.controls}
-            variants={slideUpVariants} 
-            initial="hidden"
-            className="bg-white max-w-7xl mx-auto py-12 sm:py-16 md:py-20 relative overflow-hidden rounded-3xl mt-12 sm:mt-16"
-          >
-            {/* Dotted World Map Background */}
-            <div className="absolute inset-0 opacity-5">
-              <svg width="100%" height="100%" viewBox="0 0 1200 600" className="w-full h-full">
-                <defs>
-                  <pattern id="worldDots" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
-                    <circle cx="10" cy="10" r="1" fill="#94a3b8"/>
-                  </pattern>
-                </defs>
-                <rect width="100%" height="100%" fill="url(#worldDots)"/>
-                <g fill="none" stroke="#64748b" strokeWidth="1" strokeDasharray="3,3" opacity="0.3">
-                  <path d="M200 150 Q300 120 400 150 T600 160 L700 180 Q800 160 900 170"/>
-                  <path d="M150 200 Q250 180 350 200 T550 210 L650 230"/>
-                  <path d="M100 300 Q200 280 300 300 T500 310 L600 330 Q700 310 800 320"/>
-                  <path d="M180 400 Q280 380 380 400 T580 410"/>
-                </g>
-              </svg>
-            </div>
-            
-            <div className="relative z-10 px-4 sm:px-6">
-              <ScrollAnimation delay={0.1}>
-                <div className="text-center mb-8 sm:mb-12 md:mb-16">
-                  <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900 mb-4 leading-tight px-4">
-                    Organizations Achieving Growth Using Our Product Solutions
-                  </h2>
-                </div>
-              </ScrollAnimation>
+{/* Enhanced Superb Slider Section with Center-focused Carousel */}
+<motion.section 
+  ref={sliderAnimation.ref}
+  animate={sliderAnimation.controls}
+  variants={slideUpVariants} 
+  initial="hidden"
+  className="bg-white max-w-7xl mx-auto py-12 sm:py-16 md:py-20 relative overflow-hidden rounded-3xl mt-12 sm:mt-16"
+>
+  {/* Dotted World Map Background */}
+  <div className="absolute inset-0 opacity-5">
+    <svg width="100%" height="100%" viewBox="0 0 1200 600" className="w-full h-full">
+      <defs>
+        <pattern id="worldDots" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+          <circle cx="10" cy="10" r="1" fill="#94a3b8"/>
+        </pattern>
+      </defs>
+      <rect width="100%" height="100%" fill="url(#worldDots)"/>
+      <g fill="none" stroke="#64748b" strokeWidth="1" strokeDasharray="3,3" opacity="0.3">
+        <path d="M200 150 Q300 120 400 150 T600 160 L700 180 Q800 160 900 170"/>
+        <path d="M150 200 Q250 180 350 200 T550 210 L650 230"/>
+        <path d="M100 300 Q200 280 300 300 T500 310 L600 330 Q700 310 800 320"/>
+        <path d="M180 400 Q280 380 380 400 T580 410"/>
+      </g>
+    </svg>
+  </div>
+  
+  <div className="relative z-10 px-4 sm:px-6">
+    <ScrollAnimation delay={0.1}>
+      <div className="text-center mb-8 sm:mb-12 md:mb-16">
+        <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900 mb-4 leading-tight px-4">
+          Organizations Achieving Growth Using Our Product Solutions
+        </h2>
+      </div>
+    </ScrollAnimation>
 
-              <div className="mx-auto max-w-7xl relative">
-                <div className="superb-carousel px-2">
-                  <Slider {...settings}>
-                    {[
-                      { src: "assets/avenra.png", alt: "Avenra" },
-                      { src: "assets/marians.png", alt: "Marians" },
-                      { src: "assets/mobitel.png", alt: "Mobitel" },
-                      { src: "assets/school.jpg", alt: "School" },
-                      { src: "assets/smc.jpg", alt: "SMC" }
-                    ].map((item, index) => (
-                      <div key={index} className="px-2">
-                        <ScrollAnimation delay={0.1 + index * 0.1}>
-                          <div className="logo-container flex justify-center items-center h-24 sm:h-32 md:h-40">
-                            <img
-                              src={item.src}
-                              alt={item.alt}
-                              className="object-contain h-16 sm:h-20 md:h-24 transition-all duration-500"
-                            />
-                          </div>
-                        </ScrollAnimation>
-                      </div>
-                    ))}
-                  </Slider>
-                </div>
+    <div className="mx-auto max-w-6xl relative">
+      <div className="center-mode-carousel px-2 py-8">
+        <Slider 
+          centerMode={true}
+          centerPadding="60px"
+          infinite={true}
+          slidesToShow={3}
+          speed={500}
+          autoplay={true}
+          autoplaySpeed={3000}
+          responsive={[
+            {
+              breakpoint: 1024,
+              settings: {
+                slidesToShow: 3,
+                centerPadding: "50px"
+              }
+            },
+            {
+              breakpoint: 768,
+              settings: {
+                slidesToShow: 2,
+                centerPadding: "40px"
+              }
+            },
+            {
+              breakpoint: 480,
+              settings: {
+                slidesToShow: 1,
+                centerMode: false
+              }
+            }
+          ]}
+          className="center-slider"
+        >
+          {[
+            { src: "src/assets/avenra.png", alt: "Avenra" },
+            { src: "src/assets/marians.png", alt: "Marians" },
+            { src: "src/assets/mobitel.png", alt: "Mobitel" },
+            { src: "src/assets/school.jpg", alt: "School" },
+            { src: "src/assets/smc.jpg", alt: "SMC" }
+          ].map((item, index) => (
+            <div key={index} className="px-2">
+              <div className="logo-container flex justify-center items-center h-32 sm:h-40 md:h-48 transition-all duration-300 transform hover:scale-105">
+                <img
+                  src={item.src}
+                  alt={item.alt}
+                  className="object-contain h-16 sm:h-20 md:h-24 transition-all duration-500 slider-logo"
+                />
               </div>
             </div>
-          </motion.section>
+          ))}
+        </Slider>
+      </div>
+    </div>
+  </div>
+
+  {/* Custom styles for the center mode slider */}
+  <style jsx>{`
+    .center-slider :global(.slick-center) {
+      transform: scale(1.2);
+      transition: transform 0.5s ease;
+      z-index: 1;
+    }
+    .center-slider :global(.slick-center .slider-logo) {
+      height: 28px !important;
+    }
+    @media (min-width: 640px) {
+      .center-slider :global(.slick-center .slider-logo) {
+        height: 32px !important;
+      }
+    }
+    @media (min-width: 768px) {
+      .center-slider :global(.slick-center .slider-logo) {
+        height: 36px !important;
+      }
+    }
+    .center-slider :global(.slick-slide) {
+      transition: transform 0.5s ease, opacity 0.5s ease;
+      opacity: 0.7;
+    }
+    .center-slider :global(.slick-center) {
+      opacity: 1;
+    }
+  `}</style>
+</motion.section>
 
           {/* Ready to Transform Your Business Section */}
           <motion.section 
@@ -735,10 +802,11 @@ export default function Home() {
                 <ScrollAnimation delay={0.2}>
                   <div className="relative mt-8 lg:mt-0">
                     <div className="relative rounded-2xl overflow-hidden">
-                      <motion.img 
-                        src="src/assets/business-transformation.png" 
-                        alt="Business Transformation"
-                        className="w-150 h-48 sm:h-64 md:h-100 ml-20 object-fit"
+                            <
+img
+                        src={TransformImage}
+                        alt="Transform Your Business"
+                        className="w-full h-auto object-cover"
                         whileHover={{ scale: 1.03 }}
                         transition={{ duration: 0.3 }}
                       />  
@@ -771,10 +839,11 @@ export default function Home() {
             >
               &times;
             </button>
+                
             <img
-              src="assets/popup-image.png"
-              alt="Popup"
-              className="w-full h-auto rounded-lg"
+              src={PopupImage}
+              alt="Special Offer"
+              className="w-full h-auto object-contain rounded-lg"
             />
             <p className="text-gray-700 mt-4 text-center text-sm sm:text-base">Check out our latest offer!</p>
             <div className="mt-4 flex justify-center">
