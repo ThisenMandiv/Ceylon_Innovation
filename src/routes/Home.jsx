@@ -167,22 +167,17 @@ export default function Home() {
 
       <main className="flex-1">
         {/* Hero Section */}
-        <section className="relative z-0 min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800 rounded-b-[3rem] md:rounded-b-[4rem] overflow-hidden">
+        <section className="relative z-0 min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800 rounded-b-[3rem] md:rounded-b-[4rem] overflow-hidden mt-[-300px] md:mt-[0px]">
           <video className="absolute inset-0 object-cover w-full h-full rounded-b-[3rem] md:rounded-b-[4rem]" autoPlay loop muted playsInline>
             <source src="/landing.mp4" type="video/mp4" />
           </video>
 
           <div className="absolute inset-0 w-full h-full bg-black/40 z-10 pointer-events-none"></div>
 
-          <div className="absolute inset-0 overflow-hidden rounded-b-[3rem] md:rounded-b-[4rem]">
-            <div className="absolute top-20 left-10 w-32 h-32 bg-blue-500/10 rounded-full blur-xl"></div>
-            <div className="absolute bottom-40 right-20 w-48 h-48 bg-cyan-400/10 rounded-full blur-2xl"></div>
-            <div className="absolute top-1/2 left-1/3 w-24 h-24 bg-blue-300/10 rounded-full blur-lg"></div>
-          </div>
 
           {/* Hero Content */}
-          <div className="relative z-20 w-full px-4 sm:px-8 md:px-16 lg:px-20">
-            <div className="max-w-7xl mx-auto text-center">
+          <div className="relative z-20 w-full px-4 sm:px-8 md:px-20 lg:px-20 ">
+            <div className="max-w-7xl mx-auto text-center mt-[20rem] md:mt-0">
               <motion.h1 
                 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-4 sm:mb-6 leading-tight"
                 style={{ fontFamily: 'Roboto, sans-serif' }}
@@ -195,7 +190,7 @@ export default function Home() {
               </motion.h1>
               
               <motion.p 
-                className="text-sm sm:text-base md:text-lg lg:text-xl text-white/90 mb-6 sm:mb-8 leading-relaxed max-w-4xl mx-auto px-4"
+                className="text-xs sm:text-base md:text-lg lg:text-xl text-white/90 mb-6 sm:mb-8 leading-relaxed max-w-4xl mx-auto px-4 mt-5"
                 style={{ fontFamily: 'Poppins, sans-serif' }}
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -205,13 +200,13 @@ export default function Home() {
               </motion.p>
               
               <motion.div 
-                className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center mt-8 sm:mt-12"
+                className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center mt-8 sm:mt-12 "
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.4 }}
               >
                 <motion.button
-                  className="w-full sm:w-auto bg-gradient-to-r from-blue-500 via-blue-400 to-cyan-300 hover:from-blue-600 hover:to-cyan-400 text-white px-4 sm:px-6 py-3 sm:py-4 rounded-full font-medium transition-colors text-sm sm:text-base"
+                  className=" bg-gradient-to-r from-blue-500 via-blue-400 to-cyan-300 hover:from-blue-600 hover:to-cyan-400 text-white px-3 py-3 lg:px-5 lg:py-5 rounded-full font-medium transition-colors text-sm text-base md:mt-20 "
                   style={{ fontFamily: 'Poppins, sans-serif' }}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
@@ -220,7 +215,7 @@ export default function Home() {
                 </motion.button>
 
                 <motion.button
-                  className="w-full sm:w-auto text-white hover:text-gray-300 px-4 sm:px-6 py-3 sm:py-4 rounded-lg font-medium transition-colors flex items-center justify-center gap-2 text-sm sm:text-base"
+                  className="text-white hover:text-gray-300 px-4 sm:px-6 py-3 sm:py-4 rounded-lg font-medium transition-colors flex items-center justify-center gap-2 text-sm sm:text-base mb-20 md:mb-0 mt-4"
                   style={{ fontFamily: 'Poppins, sans-serif' }}
                   whileHover={{ x: 5 }}
                   transition={{ type: "spring", stiffness: 400, damping: 10 }}
@@ -238,7 +233,7 @@ export default function Home() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.6 }}
             >
-              <div className="bg-white/10 backdrop-blur-md rounded-2xl p-4 sm:p-6">
+              <div className="bg-white/10 backdrop-blur-md rounded-2xl p-4 sm:p-6 rounded-b-[40px] ">
                 <div className="grid grid-cols-3 gap-4 sm:gap-8 text-center">
                   <ScrollAnimation delay={0.1}>
                     <div>

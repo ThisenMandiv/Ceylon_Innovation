@@ -77,16 +77,16 @@ export default function Navbar() {
 
   return (
     <header
-      className={`fixed top-0 left-1/2 transform -translate-x-1/2 z-50 mt-4 sm:mt-6 md:mt-5`}
+      className={`fixed top-0 left-1/2 transform -translate-x-1/2 z-50 mt-4 mt-[10px] md:mt-6 `}
       style={{
-        width: 'calc(100vw - 100px)',
+        width: 'calc(100vw - 20px)', // Increased width for small screens
         maxWidth: '1600px',
         marginLeft: '10px',
         marginRight: '10px',
       }}
     >
       <div
-        className={`px-3 sm:px-4 md:px-1 h-18 flex items-center justify-between rounded-full shadow-sm ${
+        className={`px-2 md:px-4 h-12 md:h-18 flex items-center justify-between rounded-full shadow-sm mr-3  ${
           isDomainPage ? 'bg-gray-00' : 'bg-white/95 backdrop-blur'
         } shadow-sm`}
       >
@@ -95,7 +95,7 @@ export default function Navbar() {
           <img
             src="/assets/Colour_Logo.png"
             alt="Ceylon Innovation Logo"
-            className="w-[143px] h-auto ml-5"
+            className="w-[90px] h-auto ml-1 md:ml-5 md:w-[140px]"
           />
         </NavLink>
 
@@ -288,7 +288,7 @@ export default function Navbar() {
           {/* Contact Us Button */}
           <NavLink
             to="/contact"
-            className="ml-2 mr-3 inline-flex items-center px-5 py-2 rounded-full text-white bg-gradient-to-r from-sky-400 to-blue-600 shadow ring-2 ring-blue-200 hover:brightness-105"
+            className="ml-2 mr-0 inline-flex items-center px-6 py-3  rounded-full text-white bg-gradient-to-r from-sky-400 to-blue-600 shadow ring-2 ring-blue-200 hover:brightness-105"
           >
             Contact us
           </NavLink>
@@ -309,15 +309,15 @@ export default function Navbar() {
       {isOpen && (
         <>
           <div
-            className="lg:hidden fixed inset-0 bg-black bg-opacity-25 z-40 transition-opacity"
+            className="lg:hidden fixed inset-0 bg-black-0 bg-opacity-25 z-40 transition-opacity"
             onClick={toggleMobileMenu}
           />
           <nav
             className={`lg:hidden absolute top-full left-0 right-0 ${
               isDomainPage ? 'bg-gray-100' : 'bg-white'
-            } border border-gray-100 rounded-2xl shadow-xl mx-2 sm:mx-4 mt-2 z-50`}
+            } border border-gray-100 rounded-2xl shadow-xl mx-1 sm:mx-4 mt-2 z-50`} // mx-1 for smaller margin
           >
-            <div className="px-4 sm:px-6 py-4 space-y-2">
+            <div className="px-2 sm:px-6 py-4 space-y-2">
               {/* Home */}
               <NavLink
                 to="/"
