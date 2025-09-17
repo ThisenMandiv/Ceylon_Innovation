@@ -95,7 +95,7 @@ export default function Navbar() {
         {/* Logo */}
         <NavLink to="/" className="flex items-center flex-shrink-0">
           <img
-            src="/assets/Colour_Logo.png"
+            src="../assets/Colour_Logo.png"
             alt="Ceylon Innovation Logo"
             className="w-[143px] h-auto ml-5"
           />
@@ -347,28 +347,28 @@ export default function Navbar() {
                 {isProductsOpen && (
                   <div className="ml-4 mt-1 space-y-1">
                     <NavLink
-                      to="/routes/skynetPro"
+                      to="/skynetPro"
                       className={mobileNavLinkClass}
                       onClick={toggleMobileMenu}
                     >
                       Skynet Pro
                     </NavLink>
                     <NavLink
-                      to="/routes/skyneRetail"
+                      to="/skyneRetail"
                       className={mobileNavLinkClass}
                       onClick={toggleMobileMenu}
                     >
                       Skynet Retail
                     </NavLink>
                     <NavLink
-                      to="/routes/HealthCareIMS"
+                      to="/HealthCareIMS"
                       className={mobileNavLinkClass}
                       onClick={toggleMobileMenu}
                     >
                       Healthcare IMS
                     </NavLink>
                     <NavLink
-                      to="/products/starsIMS"
+                      to="/StarsIMS"
                       className={mobileNavLinkClass}
                       onClick={toggleMobileMenu}
                     >
