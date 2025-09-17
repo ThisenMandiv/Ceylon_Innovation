@@ -7,6 +7,7 @@ import suwana from '../assets/suwana-hospital.png';
 import emerald from '../assets/emerald-pharmacy.png';
 import lifecare from '../assets/lifecare-hospital.png';
 
+
 // Section data
 const sections = [
   {
@@ -16,7 +17,7 @@ const sections = [
                   to data for key business decisions, prevent staff moving 
                   efficiently between tasks and slow down your reactions 
                   to change. IFS may be a way to avoid it.`,
-    imgSrc:   pharma,
+    imgSrc: pharma,
     reverse: false,
   },
   {
@@ -25,7 +26,7 @@ const sections = [
                   patient records, appointment scheduling, treatment 
                   planning, imaging integration, inventory 
                   management and intelligent reports`,
-    imgSrc: abesekara,
+    imgSrc:   abesekara,
     reverse: true,
   },
   {
@@ -40,7 +41,7 @@ const sections = [
   {
     title: 'Emerald Pharmacy',
     description: `Emerald Pharmacy Ceylon specializes in comprehensive pharmaceutical services with accurate prescription handling, advanced stock and inventory management, seamless supplier coordination, patient-focused support, modern diagnostic equipment, and intelligent reporting for better decision-making.`,
-    imgSrc: emerald,
+    imgSrc:   emerald,
     reverse: true,
   },
   {
@@ -122,7 +123,7 @@ const DecorativeDots = () => (
   </motion.div>
 );
 
-export default function Pastry() {
+export default function Healthcare() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Floating Navbar */}
@@ -140,7 +141,7 @@ export default function Pastry() {
             transition={{ duration: 0.8, ease: "easeOut" }}
           >
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-4 sm:mb-6">
-            Pastry
+            Healthcare
             </h1>
             <motion.p 
               className="text-base sm:text-lg text-gray-600 max-w-4xl mx-auto leading-relaxed px-4"
@@ -183,14 +184,23 @@ export default function Pastry() {
                   className="lg:w-1/2 flex justify-center"
                   variants={fadeInVariants}
                 >
-                  <div className="relative">
-                    <div className="absolute -top-8 -left-8 z-10">
-                      <DecorativeDots />
-                    </div>
-
+                  <div className="relative flex justify-center">
+                    {/* Decorative dots */}
+                    <svg
+                      aria-hidden="true"
+                      className="hidden sm:block absolute -left-6 -top-6 w-28 h-28 text-slate-300"
+                      viewBox="0 0 100 100"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <defs>
+                        <pattern id="ciDots" x="0" y="0" width="10" height="10" patternUnits="userSpaceOnUse">
+                          <circle cx="1.5" cy="1.5" r="1.5" className="fill-current" />
+                        </pattern>
+                      </defs>
+                      <rect width="100" height="100" fill="url(#ciDots)" />
+                    </svg>
                     <motion.div
-                      className="w-64 h-64 sm:w-72 sm:h-72 md:w-80 md:h-80 mx-auto overflow-hidden shadow-lg relative z-20"
-                      style={{ borderRadius: '70% 30% 50% 50% / 40% 60% 30% 70%' }}
+                      className="w-full max-w-md aspect-square overflow-hidden rounded-[20px] rounded-tl-[120px] border-3 border-white shadow"
                       whileHover={{ 
                         scale: 1.05,
                         transition: { duration: 0.3 }
@@ -199,7 +209,7 @@ export default function Pastry() {
                       <img
                         src={section.imgSrc}
                         alt={section.title}
-                        className="w-full h-full object-cover"
+                        className="h-full w-full object-cover"
                       />
                     </motion.div>
                   </div>
