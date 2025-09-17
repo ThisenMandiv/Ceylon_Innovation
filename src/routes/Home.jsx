@@ -167,7 +167,7 @@ export default function Home() {
   }, []);
   
   return (
-    <div className="min-h-screen flex flex-col bg-white mx-1 sm:mx-2 md:mx-4 lg:mx-8"
+    <div className="min-h-screen flex flex-col bg-white "
     style={{ fontFamily: 'Poppins, sans-serif' }}>
       {/* Floating Navbar */}
       <div className="fixed top-0 left-0 right-0 z-50">
@@ -282,7 +282,7 @@ export default function Home() {
         </section>
       
         {/* Content wrapper */}
-        <div className="px-4 sm:px-5 md:px-6 lg:px-8 xl:px-10 mt-8 sm:mt-10 md:mt-12 lg:mt-16">
+        <div className="px-4 sm:px-5 md:px-6 lg:px-8 xl:px-10 mt-8 sm:mt-10 md:mt-12 lg:mt-16 mx-1 sm:mx-2 md:mx-4 lg:mx-8">
           {/* Features Section */}
           <motion.section 
             ref={featuresAnimation.ref}
