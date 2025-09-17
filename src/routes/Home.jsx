@@ -11,7 +11,7 @@ import 'slick-carousel/slick/slick-theme.css';
 import { Link } from "react-router-dom";
 import CountUp from 'react-countup';
 
-// Animation component for scroll-triggered animations (same as About page)
+// Animation component for scroll-triggered animations
 const ScrollAnimation = ({ children, delay = 0, className = "" }) => {
   const controls = useAnimation();
   const [ref, inView] = useInView({
@@ -49,7 +49,7 @@ const ScrollAnimation = ({ children, delay = 0, className = "" }) => {
   );
 };
 
-// Simplified scroll animation hook (updated)
+// Simplified scroll animation hook
 const useScrollAnimation = (threshold = 0.1) => {
   const controls = useAnimation();
   const [ref, inView] = useInView({
@@ -84,7 +84,20 @@ const slideUpVariants = {
 
 export default function Home() {
   const [showPopup, setShowPopup] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   
+  // Check screen size on mount and resize
+  useEffect(() => {
+    const checkScreenSize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    checkScreenSize();
+    window.addEventListener('resize', checkScreenSize);
+    
+    return () => window.removeEventListener('resize', checkScreenSize);
+  }, []);
+
   // Updated to use the new scroll animation approach
   const featuresAnimation = useScrollAnimation(0.1);
   const productsAnimation = useScrollAnimation(0.1);
@@ -111,7 +124,7 @@ export default function Home() {
     pauseOnHover: false,
     arrows: false,
     centerMode: true,
-    centerPadding: '80px',
+    centerPadding: isMobile ? '20px' : '80px',
     focusOnSelect: true,
     cssEase: 'cubic-bezier(0.4, 0, 0.2, 1)',
     responsive: [
@@ -139,21 +152,22 @@ export default function Home() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowPopup(true);
-    }, 5000);
+    }, 8000);
   
     return () => clearTimeout(timer);
   }, []);
   
   return (
-    <div className="min-h-full flex flex-col bg-white">
+    <div className="min-h-screen flex flex-col bg-white"
+    style={{ fontFamily: 'Poppins, sans-serif' }}>
       {/* Floating Navbar */}
-      <div className="absolute top-[-20px] md:top-[-20px] sm:top-[-15px] xs:top-[-10px] left-0 right-0 z-50">
+      <div className="fixed top-0 left-0 right-0 z-50">
         <Navbar />
       </div>
 
       <main className="flex-1">
         {/* Hero Section */}
-        <section className="relative z-0 h-screen min-h-[600px] sm:min-h-[700px] md:min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800 rounded-b-[3rem] md:rounded-b-[4rem] overflow-hidden">
+        <section className="relative z-0 min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800 rounded-b-[3rem] md:rounded-b-[4rem] overflow-hidden">
           <video className="absolute inset-0 object-cover w-full h-full rounded-b-[3rem] md:rounded-b-[4rem]" autoPlay loop muted playsInline>
             <source src="/landing.mp4" type="video/mp4" />
           </video>
@@ -167,96 +181,94 @@ export default function Home() {
           </div>
 
           {/* Hero Content */}
-          <div className="absolute inset-0 flex items-center justify-center z-20 top-[-100px]">
-            <div className="px-4 sm:px-8 md:px-16 lg:px-[3cm] w-full">
-              <div className="max-w-7xl mx-auto text-center transform translate-y-12" style={{ height: '500px' }}>
-                <motion.h1 
-                  className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-4 sm:mb-6 leading-tight"
-                  style={{ fontFamily: 'Roboto, sans-serif' }}
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8 }}
-                >
-                  Innovate Your Business Future With<br />
-                  <span className="text-cyan-400">Ceylon Innovation</span>
-                </motion.h1>
-                
-                <motion.p 
-                  className="text-base sm:text-lg md:text-xl text-white/90 mb-6 sm:mb-8 leading-relaxed max-w-4xl mx-auto"
+          <div className="relative z-20 w-full px-4 sm:px-8 md:px-16 lg:px-20">
+            <div className="max-w-7xl mx-auto text-center">
+              <motion.h1 
+                className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-4 sm:mb-6 leading-tight"
+                style={{ fontFamily: 'Roboto, sans-serif' }}
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8 }}
+              >
+                Innovate Your Business Future With<br />
+                <span className="text-cyan-400">Ceylon Innovation</span>
+              </motion.h1>
+              
+              <motion.p 
+                className="text-sm sm:text-base md:text-lg lg:text-xl text-white/90 mb-6 sm:mb-8 leading-relaxed max-w-4xl mx-auto px-4"
+                style={{ fontFamily: 'Poppins, sans-serif' }}
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+              >
+                We Provide Cutting-Edge Technology Solutions Tailored To Your Business Needs. From ERP System To Mobile Apps, We've Got You Covered
+              </motion.p>
+              
+              <motion.div 
+                className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center mt-8 sm:mt-12"
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.4 }}
+              >
+                <motion.button
+                  className="w-full sm:w-auto bg-gradient-to-r from-blue-500 via-blue-400 to-cyan-300 hover:from-blue-600 hover:to-cyan-400 text-white px-4 sm:px-6 py-3 sm:py-4 rounded-full font-medium transition-colors text-sm sm:text-base"
                   style={{ fontFamily: 'Poppins, sans-serif' }}
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8, delay: 0.2 }}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
                 >
-                  We Provide Cutting-Edge Technology Solutions Tailored To Your Business Needs. From ERP <br /> System To Mobile Apps, We've Got You Covered
-                </motion.p>
-                
-                <motion.div 
-                  className="flex flex-col sm:flex-row gap-3 sm:gap-4 mb-12 sm:mb-16 justify-center mt-20 w-full"
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8, delay: 0.4 }}
-                >
-                  <motion.button
-                    className="w-full sm:w-auto bg-gradient-to-r from-blue-500 via-blue-400 to-cyan-300 hover:from-blue-600 hover:to-cyan-400 text-white px-4 sm:px-6 py-4 rounded-full font-regular transition-colors text-md sm:text-base"
-                    style={{ fontFamily: 'Poppins, sans-serif' }}
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    &lt; &gt; Start Your Project
-                  </motion.button>
+                  &lt; &gt; Start Your Project
+                </motion.button>
 
-                  <motion.button
-                    className="w-full sm:w-auto hover:to-cyan-400 text-white hover:text-gray-300 px-6 sm:px-8 py-3 rounded-lg font-regular transition-colors flex items-center justify-center gap-5 text-md sm:text-base border border-none"
-                    style={{ fontFamily: 'Poppins, sans-serif' }}
-                    whileHover={{ x: 5 }}
-                    transition={{ type: "spring", stiffness: 400, damping: 10 }}
-                  >
-                    Explore Services &rarr;
-                  </motion.button>
-                </motion.div>
-              </div>
+                <motion.button
+                  className="w-full sm:w-auto text-white hover:text-gray-300 px-4 sm:px-6 py-3 sm:py-4 rounded-lg font-medium transition-colors flex items-center justify-center gap-2 text-sm sm:text-base"
+                  style={{ fontFamily: 'Poppins, sans-serif' }}
+                  whileHover={{ x: 5 }}
+                  transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                >
+                  Explore Services &rarr;
+                </motion.button>
+              </motion.div>
             </div>
           </div>
 
           {/* Statistics Panel */}
-          <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 z-40 w-full max-w-4xl px-4">
+          <div className="absolute bottom-4 sm:bottom-8 left-1/2 transform -translate-x-1/2 z-40 w-full max-w-4xl px-4">
             <motion.div 
               initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.6 }}
             >
-              <div className="px-6 py-8">
-                <div className="grid grid-cols-3 gap-8 text-center mb-15">
+              <div className="bg-white/10 backdrop-blur-md rounded-2xl p-4 sm:p-6">
+                <div className="grid grid-cols-3 gap-4 sm:gap-8 text-center">
                   <ScrollAnimation delay={0.1}>
                     <div>
-                      <div className="text-3xl sm:text-3xl md:text-6xl font-semibold text-white mb-2">
+                      <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold text-white mb-1 sm:mb-2">
                         <CountUp start={0} end={1000} duration={2.5} separator="," />+
                       </div>
-                      <div className="text-xs sm:text-sm md:text-base text-gray-300">
+                      <div className="text-xs sm:text-sm text-gray-300">
                         Software Installations
-                      </div>
-                    </div>
-                  </ScrollAnimation>
-
-                  <ScrollAnimation delay={0.2}>
-                    <div>
-                      <div className="text-2xl sm:text-3xl md:text-6xl font-semibold text-white mb-2">
-                        <CountUp start={0} end={25} duration={4} />+
-                      </div>
-                      <div className="text-xs sm:text-sm md:text-base text-gray-300">
-                        Software Developers
                       </div>
                     </div>
                   </ScrollAnimation>
 
                   <ScrollAnimation delay={0.3}>
                     <div>
-                      <div className="text-2xl sm:text-3xl md:text-6xl font-semibold text-white mb-2">
+                      <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold text-white mb-1 sm:mb-2">
                         <CountUp start={0} end={10} duration={6} />+
                       </div>
-                      <div className="text-xs sm:text-sm md:text-base text-gray-300">
+                      <div className="text-xs sm:text-sm text-gray-300">
                         Years Innovation
+                      </div>
+                    </div>
+                  </ScrollAnimation>
+
+                  <ScrollAnimation delay={0.2}>
+                    <div>
+                      <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold text-white mb-1 sm:mb-2">
+                        <CountUp start={0} end={25} duration={4} />+
+                      </div>
+                      <div className="text-xs sm:text-sm text-gray-300">
+                        Software Developers
                       </div>
                     </div>
                   </ScrollAnimation>
@@ -267,7 +279,7 @@ export default function Home() {
         </section>
       
         {/* Content wrapper */}
-        <div className="px-4 sm:px-8 md:px-16 lg:px-[3cm] mt-20">
+        <div className="px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 mt-12 sm:mt-16 md:mt-20">
           {/* Features Section */}
           <motion.section 
             ref={featuresAnimation.ref}
@@ -277,26 +289,26 @@ export default function Home() {
             className="bg-white max-w-7xl mx-auto py-12 md:py-16"
           >
             <ScrollAnimation delay={0.1}>
-              <div className="flex flex-col lg:flex-row items-start justify-between mb-8 md:mb-12">
-                <div className="lg:max-w-200 mb-6 lg:mb-0">
-                  <h1 className="text-xl sm:text-2xl md:text-4xl font-semibold text-gray-900 mb-4 leading-tight"
+              <div className="flex flex-col lg:flex-row items-start justify-between mb-8 md:mb-12 gap-6">
+                <div className="lg:max-w-2xl">
+                  <h1 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-gray-900 mb-4 leading-tight"
                    style={{ fontFamily: 'Roboto, sans-serif' }}>
-                    <span className="text-cyan-500">Innovative Features</span> Our Company <br />Delivers To You
+                    <span className="text-cyan-500">Innovative Features</span> Our Company<br /> Delivers To You
                   </h1>
                 </div>
-                <div className="text-gray-500 text-xl lg:max-w-md">
+                <div className="text-gray-500 text-base sm:text-md lg:max-w-md text-right">
                   We Always Take Care Of Our Clients. Comfort Of Our Clients With Technology And Innovation
                 </div>
               </div>
             </ScrollAnimation>
 
-            <section className="py-20 px-8 bg-white-100">
+            <div className="py-12 sm:py-2 px-4">
               <div className="flex justify-center items-center">
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl w-full">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 max-w-6xl w-full">
                   {/* Responsibility Card */}
                   <ScrollAnimation delay={0.1}>
                     <motion.div
-                      className="bg-white rounded-2xl p-6 shadow-sm hover:shadow-xl transition-shadow cursor-pointer"
+                      className="bg-white rounded-2xl p-5 sm:p-9 shadow-sm hover:shadow-xl transition-shadow cursor-pointer h-full"
                       whileHover={{
                         y: -10,
                         scale: 1.04,
@@ -304,9 +316,9 @@ export default function Home() {
                         transition: { type: "spring", stiffness: 250, damping: 20 },
                       }}
                     >
-                      <div className="w-14 h-14 bg-blue-50 rounded-xl flex items-center justify-center mb-5">
+                      <div className="w-12 h-12 sm:w-14 sm:h-14 bg-blue-50 rounded-xl flex items-center justify-center mb-4 sm:mb-5">
                         <svg
-                          className="w-8 h-8 text-[#2169B0]"
+                          className="w-6 h-6 sm:w-8 sm:h-8 text-[#2169B0]"
                           fill="none"
                           stroke="currentColor"
                           viewBox="0 0 24 24"
@@ -320,7 +332,7 @@ export default function Home() {
                         </svg>
                       </div>
                       <h3 className="text-lg font-semibold text-gray-900 mb-3">Responsibility</h3>
-                      <p className="text-gray-500 text-base leading-7 mb-5">
+                      <p className="text-gray-500 text-[14.5px] leading-7 mb-4 sm:mb-5 text-justify">
                         We take full responsibility in delivering secure, ethical, and reliable IT
                         solutions. Every project is handled with accountability, transparency,
                         and complete ownership, ensuring that our clients receive nothing less
@@ -332,7 +344,7 @@ export default function Home() {
                   {/* Bespoke Card */}
                   <ScrollAnimation delay={0.2}>
                     <motion.div
-                      className="bg-white rounded-2xl p-6 shadow-sm hover:shadow-xl transition-shadow cursor-pointer"
+                      className="bg-white rounded-2xl p-5 sm:p-9 cursor-pointer h-full"
                       whileHover={{
                         y: -10,
                         scale: 1.04,
@@ -340,9 +352,9 @@ export default function Home() {
                         transition: { type: "spring", stiffness: 250, damping: 20 },
                       }}
                     >
-                      <div className="w-14 h-14 bg-blue-50 rounded-xl flex items-center justify-center mb-5">
+                      <div className="w-12 h-12 sm:w-14 sm:h-14 bg-blue-50 rounded-xl flex items-center justify-center mb-4 sm:mb-5">
                         <svg
-                          className="w-8 h-8 text-[#2169B0]"
+                          className="w-6 h-6 sm:w-8 sm:h-8 text-[#2169B0]"
                           fill="none"
                           stroke="currentColor"
                           viewBox="0 0 24 24"
@@ -356,7 +368,7 @@ export default function Home() {
                         </svg>
                       </div>
                       <h3 className="text-lg font-semibold text-gray-900 mb-3">Bespoke</h3>
-                      <p className="text-gray-600 text-base leading-7 mb-5">
+                      <p className="text-gray-600 text-sm sm:text-base leading-7 mb-4 sm:mb-5 text-justify">
                         Every business is unique, and so are our solutions. We design and
                         develop custom IT systems that align seamlessly with your goals,
                         workflows, and long-term vision. From tailored applications to
@@ -368,7 +380,7 @@ export default function Home() {
                   {/* Innovation Card */}
                   <ScrollAnimation delay={0.3}>
                     <motion.div
-                      className="bg-white rounded-2xl p-6 shadow-sm hover:shadow-xl transition-shadow cursor-pointer"
+                      className="bg-white rounded-2xl p-5 sm:p-9 cursor-pointer h-full"
                       whileHover={{
                         y: -10,
                         scale: 1.04,
@@ -376,9 +388,9 @@ export default function Home() {
                         transition: { type: "spring", stiffness: 250, damping: 20 },
                       }}
                     >
-                      <div className="w-14 h-14 bg-blue-50 rounded-xl flex items-center justify-center mb-5">
+                      <div className="w-12 h-12 sm:w-14 sm:h-14 bg-blue-50 rounded-xl flex items-center justify-center mb-4 sm:mb-5">
                         <svg
-                          className="w-8 h-8 text-[#2169B0]"
+                          className="w-6 h-6 sm:w-8 sm:h-8 text-[#2169B0]"
                           fill="none"
                           stroke="currentColor"
                           viewBox="0 0 24 24"
@@ -392,7 +404,7 @@ export default function Home() {
                         </svg>
                       </div>
                       <h3 className="text-lg font-semibold text-gray-900 mb-3">Innovation Service</h3>
-                      <p className="text-gray-600 text-base leading-7 mb-5">
+                      <p className="text-gray-600 text-sm sm:text-base leading-7 mb-4 sm:mb-5 text-justify">
                         We thrive on innovation by blending creativity with cutting-edge
                         technology. Our solutions are designed to be future-ready, leveraging
                         the latest tools, frameworks, and best practices in the industry. We
@@ -402,7 +414,7 @@ export default function Home() {
                   </ScrollAnimation>
                 </div>
               </div>
-            </section>
+            </div>
           </motion.section>
 
           {/* Products Section */}
@@ -411,15 +423,15 @@ export default function Home() {
             animate={productsAnimation.controls}
             variants={slideUpVariants} 
             initial="hidden"
-            className="bg-white max-w-7xl mx-auto py-12 md:py-16 mt-[-100px] relative z-10"
+            className="bg-white w-full py-12 md:py-1 relative z-10"
           >
-            <div className="px-4 sm:px-6 md:px-8 w-full py-10 rounded-3xl">
+            <div className="max-w-7xl mx-auto py-8 sm:py-10 rounded-3xl">
               <ScrollAnimation delay={0.1}>
-                <div className="text-center mb-3">
-                  <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 leading-tight">
+                <div className="text-center mb-8">
+                  <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-gray-900 leading-tight">
                     Our <span className="text-cyan-500">Products</span>
                   </h2>
-                  <p className="text-gray-600 text-sm md:text-base mt-3">
+                  <p className="text-gray-600 text-sm md:text-base mt-3 max-w-2xl mx-auto">
                     We have many products For You with Affordable Price
                   </p>
                 </div>
@@ -427,15 +439,17 @@ export default function Home() {
 
               {/* Tabs */}
               <ScrollAnimation delay={0.2}>
-                <div className="mt-8">
+                <div className="mt-8 sm:mt-10 mb-8 sm:mb-12">
                   <div className="relative border-b border-gray-200">
-                    <div className="flex text-xs sm:text-sm text-gray-600">
+                    <div className="flex flex-wrap text-xs sm:text-sm text-gray-600">
                       {productTabs.map((tab) => (
                         <button
                           key={tab.id}
                           onClick={() => setActiveProductTab(tab.id)}
-                          className={`flex-1 px-3 sm:px-4 py-2 font-medium transition-colors ${
-                            activeProductTab === tab.id ? 'text-blue-400' : 'hover:text-blue-400'
+                          className={`flex-1 min-w-[120px] px-3 sm:px-4 py-2 font-medium transition-colors ${
+                            activeProductTab === tab.id
+                              ? "text-blue-400"
+                              : "hover:text-blue-400"
                           }`}
                         >
                           {tab.label}
@@ -446,10 +460,12 @@ export default function Home() {
                       className="absolute bottom-[-1.5px] h-[3.5px] bg-blue-400 rounded-full"
                       initial={false}
                       animate={{
-                        left: `${(activeProductIndex / productTabs.length) * 100}%`,
+                        left: `${
+                          (activeProductIndex / productTabs.length) * 100
+                        }%`,
                         width: `${100 / productTabs.length}%`,
                       }}
-                      transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+                      transition={{ type: "spring", stiffness: 400, damping: 30 }}
                       style={{ left: 0, width: `${100 / productTabs.length}%` }}
                     />
                   </div>
@@ -457,28 +473,47 @@ export default function Home() {
               </ScrollAnimation>
 
               {/* Cards */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-4 mt-8">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mt-8">
                 {/* SKYNET Pro */}
                 <ScrollAnimation delay={0.3}>
                   <motion.div
-                    whileHover={{ y: -6, scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                    onClick={() => setActiveProductTab('pro')}
+                    whileHover={{ y: -8, scale: 1.03 }}
+                    whileTap={{ scale: 0.97 }}
+                    onClick={() => setActiveProductTab("pro")}
                     role="button"
                     tabIndex={0}
-                    onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') setActiveProductTab('pro'); }}
-                    className={`bg-white rounded-2xl border border-gray-200 overflow-hidden cursor-pointer shadow-sm transition-all will-change-transform ${
-                      activeProductTab === 'pro' ? 'ring-2 ring-blue-500/60 shadow-lg' : 'hover:shadow-xl'
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" || e.key === " ")
+                        setActiveProductTab("pro");
+                    }}
+                    className={`bg-white rounded-2xl border border-gray-200 overflow-hidden cursor-pointer shadow-sm transition-all will-change-transform h-full ${
+                      activeProductTab === "pro"
+                        ? "ring-2 ring-blue-500/60 shadow-lg"
+                        : "hover:shadow-xl"
                     }`}
                   >
-                    <div className="aspect-[4/3] bg-white flex items-center justify-center">
-                      <img src="assets/SkynetPro.png" alt="SKYNET Pro" className="w-full h-full object-contain p-3" />
+                    <div className="aspect-[4/3] flex items-center justify-center bg-blue-50">
+                      <img
+                        src="assets/SkynetPro.png"
+                        alt="SKYNET Pro"
+                        className="w-5/4 h-auto object-contain p-2"
+                      />
                     </div>
-                    <div className="p-5">
-                      <p className="text-[15px] leading-7 text-gray-600">
-                        SKYNET Pro uses the latest technology to manage entire hospitality businesses. Supports big-scale operations and handles unlimited transactions seamlessly.
+                    <div className="p-4 sm:p-5">
+                      <p
+                        className="text-[14.5px] leading-6 text-gray-500 text-justify mb-4"
+                      >
+                        SKYNET Pro uses the latest technology to manage entire
+                        hospitality businesses. Supports large-scale operations
+                        and handles unlimited transactions seamlessly and
+                        efficiently.
                       </p>
-                      <Link to="/skynet-pro" className="inline-block mt-4 text-blue-600 font-semibold text-sm">Read More</Link>
+                      <Link
+                        to="/skynet-pro"
+                        className="inline-block text-blue-400 font-medium text-sm sm:text-base hover:text-blue-600 transition-colors"
+                      >
+                        Read More
+                      </Link>
                     </div>
                   </motion.div>
                 </ScrollAnimation>
@@ -486,24 +521,40 @@ export default function Home() {
                 {/* SKYNET Retail */}
                 <ScrollAnimation delay={0.4}>
                   <motion.div
-                    whileHover={{ y: -6, scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                    onClick={() => setActiveProductTab('retail')}
+                    whileHover={{ y: -8, scale: 1.05 }}
+                    whileTap={{ scale: 0.97 }}
+                    onClick={() => setActiveProductTab("retail")}
                     role="button"
                     tabIndex={0}
-                    onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') setActiveProductTab('retail'); }}
-                    className={`bg-white rounded-2xl border border-gray-200 overflow-hidden cursor-pointer shadow-sm transition-all will-change-transform ${
-                      activeProductTab === 'retail' ? 'ring-2 ring-blue-500/60 shadow-lg' : 'hover:shadow-xl'
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" || e.key === " ")
+                        setActiveProductTab("retail");
+                    }}
+                    className={`bg-white rounded-2xl border border-gray-200 overflow-hidden cursor-pointer shadow-sm transition-all will-change-transform h-full ${
+                      activeProductTab === "retail"
+                        ? "ring-2 ring-blue-500/60 shadow-lg"
+                        : "hover:shadow-xl"
                     }`}
                   >
-                    <div className="aspect-[4/3] bg-white flex items-center justify-center">
-                      <img src="assets/skynet-retail.png" alt="SKYNET Retail" className="w-full h-full object-contain p-3" />
+                    <div className="aspect-[4/3] flex items-center justify-center bg-blue-50">
+                      <img
+                        src="assets/skynet-retail.png"
+                        alt="SKYNET Retail"
+                        className="w-5/4 h-auto object-contain p-2"
+                      />
                     </div>
-                    <div className="p-5">
-                      <p className="text-[15px] leading-7 text-gray-600">
-                        SKYNET Retail software is designed for salons, supermarkets, liquor stores, clothing stores. It enables smooth transactions and improves customer service efficiency.
+                    <div className="p-4 sm:p-5">
+                      <p className="text-[14.5px] leading-6 text-gray-500 text-justify mb-4">
+                        SKYNET Retail software is designed for retailed business such as salons,
+                        supermarkets, liquor stores, clothing stores. It enables
+                        smooth transactions and improves customer service.
                       </p>
-                      <Link to="/skynet-retail" className="inline-block mt-4 text-blue-600 font-semibold text-sm">Read More</Link>
+                      <Link
+                        to="/skynet-retail"
+                        className="inline-block text-blue-400 font-medium text-sm sm:text-base hover:text-blue-600 transition-colors"
+                      >
+                        Read More
+                      </Link>
                     </div>
                   </motion.div>
                 </ScrollAnimation>
@@ -511,24 +562,40 @@ export default function Home() {
                 {/* HEALTHCARE IMS */}
                 <ScrollAnimation delay={0.5}>
                   <motion.div
-                    whileHover={{ y: -6, scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                    onClick={() => setActiveProductTab('health')}
+                    whileHover={{ y: -8, scale: 1.05 }}
+                    whileTap={{ scale: 0.97 }}
+                    onClick={() => setActiveProductTab("health")}
                     role="button"
                     tabIndex={0}
-                    onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') setActiveProductTab('health'); }}
-                    className={`bg-white rounded-2xl border border-gray-200 overflow-hidden cursor-pointer shadow-sm transition-all will-change-transform ${
-                      activeProductTab === 'health' ? 'ring-2 ring-blue-500/60 shadow-lg' : 'hover:shadow-xl'
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" || e.key === " ")
+                        setActiveProductTab("health");
+                    }}
+                    className={`bg-white rounded-2xl border border-gray-200 overflow-hidden cursor-pointer shadow-sm transition-all will-change-transform h-full ${
+                      activeProductTab === "health"
+                        ? "ring-2 ring-blue-500/60 shadow-lg"
+                        : "hover:shadow-xl"
                     }`}
                   >
-                    <div className="aspect-[4/3] bg-white flex items-center justify-center">
-                      <img src="assets/healthcare-ims.png" alt="HEALTHCARE IMS" className="w-full h-full object-contain p-3" />
+                    <div className="aspect-[4/3] flex items-center justify-center bg-blue-50">
+                      <img
+                        src="assets/healthcare-ims.png"
+                        alt="HEALTHCARE IMS"
+                        className="w-5/4 h-auto object-contain p-2"
+                      />
                     </div>
-                    <div className="p-5">
-                      <p className="text-[15px] leading-7 text-gray-600">
-                        HEALTHCARE IMS supports hospitals, clinics, labs and pharmacies of any size. Fully customizable to fit specific customer. All user data is securely stored.
+                    <div className="p-4 sm:p-5">
+                      <p className="text-[14.5px]  leading-6 text-gray-500 text-justify mb-4">
+                        HEALTHCARE IMS supports hospitals, clinics, labs and
+                        pharmacies of any size. Fully customizable to fit specific
+                        customer. All user data is securely stored.
                       </p>
-                      <Link to="/healthcare-ims" className="inline-block mt-4 text-blue-600 font-semibold text-sm">Read More</Link>
+                      <Link
+                        to="/healthcare-ims"
+                        className="inline-block text-blue-400 font-medium text-sm sm:text-base hover:text-blue-600 transition-colors"
+                      >
+                        Read More
+                      </Link>
                     </div>
                   </motion.div>
                 </ScrollAnimation>
@@ -536,24 +603,40 @@ export default function Home() {
                 {/* STARS IMS */}
                 <ScrollAnimation delay={0.6}>
                   <motion.div
-                    whileHover={{ y: -6, scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                    onClick={() => setActiveProductTab('stars')}
+                    whileHover={{ y: -8, scale: 1.05 }}
+                    whileTap={{ scale: 0.97 }}
+                    onClick={() => setActiveProductTab("stars")}
                     role="button"
                     tabIndex={0}
-                    onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') setActiveProductTab('stars'); }}
-                    className={`bg-white rounded-2xl border border-gray-200 overflow-hidden cursor-pointer shadow-sm transition-all will-change-transform ${
-                      activeProductTab === 'stars' ? 'ring-2 ring-blue-500/60 shadow-lg' : 'hover:shadow-xl'
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" || e.key === " ")
+                        setActiveProductTab("stars");
+                    }}
+                    className={`bg-white rounded-2xl border border-gray-200 overflow-hidden cursor-pointer shadow-sm transition-all will-change-transform h-full ${
+                      activeProductTab === "stars"
+                        ? "ring-2 ring-blue-500/60 shadow-lg"
+                        : "hover:shadow-xl"
                     }`}
                   >
-                    <div className="aspect-[4/3] bg-white flex items-center justify-center">
-                      <img src="assets/stars-ims.png" alt="STARS IMS" className="w-full h-full object-contain p-3" />
+                    <div className="aspect-[4/3] flex items-center justify-center bg-blue-50">
+                      <img
+                        src="assets/stars-ims.png"
+                        alt="STARS IMS"
+                        className="w-5/4 h-auto object-contain p-2"
+                      />
                     </div>
-                    <div className="p-5">
-                      <p className="text-[15px] leading-7 text-gray-600">
-                        STARS IMS is unique software designed for schools, tutors, colleges and universities. Built with secure technology, advanced features, and carefully tailored for education.
+                    <div className="p-4 sm:p-5">
+                      <p className="text-[14.5px] leading-6 text-gray-500 text-justify mb-4">
+                        STARS IMS is unique software designed for schools, tutors,
+                        colleges and universities. Built with secure technology,
+                        advanced features, and carefully tailored for education.
                       </p>
-                      <Link to="/stars-ims" className="inline-block mt-4 text-blue-600 font-semibold text-sm">Read More</Link>
+                      <Link
+                        to="/stars-ims"
+                        className="inline-block text-blue-400 font-medium text-sm sm:text-base hover:text-blue-600 transition-colors"
+                      >
+                        Read More
+                      </Link>
                     </div>
                   </motion.div>
                 </ScrollAnimation>
@@ -567,7 +650,7 @@ export default function Home() {
             animate={sliderAnimation.controls}
             variants={slideUpVariants} 
             initial="hidden"
-            className="bg-gradient-to-br from-gray-50 via-white to-blue-50/30 max-w-7xl mx-auto py-12 sm:py-16 md:py-20 relative overflow-hidden"
+            className="bg-white max-w-7xl mx-auto py-12 sm:py-16 md:py-20 relative overflow-hidden rounded-3xl mt-12 sm:mt-16"
           >
             {/* Dotted World Map Background */}
             <div className="absolute inset-0 opacity-5">
@@ -587,22 +670,17 @@ export default function Home() {
               </svg>
             </div>
             
-            <div className="relative z-10">
+            <div className="relative z-10 px-4 sm:px-6">
               <ScrollAnimation delay={0.1}>
-                <div className="text-center mb-8 sm:mb-12 md:mb-16 px-4">
-                  <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-4 leading-tight">
+                <div className="text-center mb-8 sm:mb-12 md:mb-16">
+                  <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900 mb-4 leading-tight px-4">
                     Organizations Achieving Growth Using Our Product Solutions
                   </h2>
                 </div>
               </ScrollAnimation>
 
               <div className="mx-auto max-w-7xl relative">
-                {/* Slider styles remain the same */}
-                <style jsx>{`
-                  /* ... your existing slider styles ... */
-                `}</style>
-                               
-                <div className="superb-carousel">
+                <div className="superb-carousel px-2">
                   <Slider {...settings}>
                     {[
                       { src: "assets/avenra.png", alt: "Avenra" },
@@ -613,11 +691,11 @@ export default function Home() {
                     ].map((item, index) => (
                       <div key={index} className="px-2">
                         <ScrollAnimation delay={0.1 + index * 0.1}>
-                          <div className="logo-container flex justify-center items-center">
+                          <div className="logo-container flex justify-center items-center h-24 sm:h-32 md:h-40">
                             <img
                               src={item.src}
                               alt={item.alt}
-                              className="object-contain transition-all duration-500"
+                              className="object-contain h-16 sm:h-20 md:h-24 transition-all duration-500"
                             />
                           </div>
                         </ScrollAnimation>
@@ -635,27 +713,21 @@ export default function Home() {
             animate={transformAnimation.controls}
             variants={slideUpVariants} 
             initial="hidden"
-            className="bg-white py-16 md:py-20 rounded-3xl relative overflow-hidden mb-16"
+            className="bg-blue-50 py-12 md:py-16 rounded-3xl relative overflow-hidden my-12 sm:my-16"
           >
-            <div className="absolute inset-0 overflow-hidden">
-              <div className="absolute top-10 left-10 w-32 h-32 bg-blue-500/10 rounded-full blur-xl"></div>
-              <div className="absolute bottom-10 right-10 w-48 h-48 bg-cyan-400/10 rounded-full blur-2xl"></div>
-              <div className="absolute top-1/2 left-1/4 w-24 h-24 bg-blue-300/10 rounded-full blur-lg"></div>
-            </div>
-
             <div className="relative z-10 px-4 sm:px-6 md:px-8">
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
                 {/* Left Content */}
                 <ScrollAnimation delay={0.1}>
-                  <div className="text-gray-800">
-                    <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-6 leading-tight">
+                  <div className="text-gray-800 ml-20">
+                    <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold mb-4 sm:mb-6 leading-tight">
                       Ready To Transform Your Business?
                     </h2>
-                    <p className="text-gray-600 text-base md:text-lg mb-8 leading-relaxed">
+                    <p className="text-gray-600 text-base md:text-lg mb-6 sm:mb-8 leading-relaxed">
                       Let's Discuss Your Project Requirements And Create A Custom Solution That Perfectly Fits Your Business Needs.
                     </p>
                     <motion.button 
-                      className="bg-blue-500 hover:bg-blue-600 text-white px-8 py-3 rounded-full font-semibold transition-colors"
+                      className="bg-blue-500 h-15 hover:bg-blue-600 text-white px-6 sm:px-8 py-3 rounded-2xl font-semibold transition-colors text-sm sm:text-base cursor-pointer"
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                     >
@@ -666,18 +738,16 @@ export default function Home() {
 
                 {/* Right Image */}
                 <ScrollAnimation delay={0.2}>
-                  <div className="relative">
-                    <div className="relative rounded-2xl overflow-hidden shadow-2xl">
+                  <div className="relative mt-8 lg:mt-0">
+                    <div className="relative rounded-2xl overflow-hidden">
                       <motion.img 
                         src="src/assets/business-transformation.png" 
                         alt="Business Transformation"
-                        className="w-full h-64 md:h-80 object-cover"
+                        className="w-150 h-48 sm:h-64 md:h-100 ml-20 object-fit"
                         whileHover={{ scale: 1.03 }}
                         transition={{ duration: 0.3 }}
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+                      />  
                     </div>
-                    <div className="absolute -bottom-6 -left-6 w-12 h-12 bg-blue-500/30 rounded-full blur-sm"></div>
                   </div>
                 </ScrollAnimation>
               </div>
@@ -689,19 +759,19 @@ export default function Home() {
       {/* Popup */}
       {showPopup && (
         <motion.div 
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/50"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
         >
           <motion.div 
-            className="bg-white rounded-2xl p-4 sm:p-6 md:p-8 max-w-sm w-full relative"
+            className="bg-white rounded-2xl p-4 sm:p-6 max-w-sm w-full relative"
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ type: "spring", damping: 20 }}
           >
             <button
-              className="absolute top-2 right-2 text-gray-600 hover:text-gray-900 font-bold text-xl"
+              className="absolute top-2 right-2 text-gray-600 hover:text-gray-900 font-bold text-xl w-8 h-8 flex items-center justify-center rounded-full"
               onClick={() => setShowPopup(false)}
             >
               &times;
@@ -711,7 +781,15 @@ export default function Home() {
               alt="Popup"
               className="w-full h-auto rounded-lg"
             />
-            <p className="text-gray-700 mt-4 text-center">Check out our latest offer!</p>
+            <p className="text-gray-700 mt-4 text-center text-sm sm:text-base">Check out our latest offer!</p>
+            <div className="mt-4 flex justify-center">
+              <button 
+                className="bg-blue-500 text-white px-4 py-2 rounded-lg text-sm sm:text-base"
+                onClick={() => setShowPopup(false)}
+              >
+                Close
+              </button>
+            </div>
           </motion.div>
         </motion.div>
       )}
