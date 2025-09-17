@@ -2,6 +2,12 @@ import { useState, useEffect } from 'react';
 import { motion, useAnimation } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { useRef } from 'react';
+import SkynetPro from '../assets/skynet-pro.png';
+import SkynetRetail from '../assets/skynet-retail.png';
+import HealthcareIMS from '../assets/healthcare-ims.png';
+import StarsIMS from '../assets/stars-ims.png';
+import PopupImage from '../assets/popup-image.png';
+import TransformImage from '../assets/business-transformation.png';
 
 import Navbar from '../components/Navbar.jsx';
 import Footer from '../components/Footer.jsx';
@@ -494,7 +500,7 @@ export default function Home() {
                   >
                     <div className="aspect-[4/3] flex items-center justify-center bg-blue-50">
                       <img
-                        src="src/assets/SkynetPro.png"
+                        src={SkynetPro}
                         
                         
                         alt="SKYNET Pro"
@@ -540,7 +546,7 @@ export default function Home() {
                   >
                     <div className="aspect-[4/3] flex items-center justify-center bg-blue-50">
                       <img
-                        src="src/assets/skynet-retail.png"
+                        src={SkynetRetail}
                         alt="SKYNET Retail"
                         className="w-5/4 h-auto object-contain p-2"
                       />
@@ -581,7 +587,7 @@ export default function Home() {
                   >
                     <div className="aspect-[4/3] flex items-center justify-center bg-blue-50">
                       <img
-                        src="src/assets/healthcare-ims.png"
+                        src={HealthcareIMS}
                         alt="HEALTHCARE IMS"
                         className="w-5/4 h-auto object-contain p-2"
                       />
@@ -622,7 +628,7 @@ export default function Home() {
                   >
                     <div className="aspect-[4/3] flex items-center justify-center bg-blue-50">
                       <img
-                        src="src/assets/stars-ims.png"
+                        src={StarsIMS}
                         alt="STARS IMS"
                         className="w-5/4 h-auto object-contain p-2"
                       />
@@ -801,10 +807,11 @@ export default function Home() {
                 <ScrollAnimation delay={0.2}>
                   <div className="relative mt-8 lg:mt-0">
                     <div className="relative rounded-2xl overflow-hidden">
-                      <motion.img 
-                        src="src/assets/business-transformation.png" 
-                        alt="Business Transformation"
-                        className="w-150 h-48 sm:h-64 md:h-100 ml-20 object-fit"
+                            <
+img
+                        src={TransformImage}
+                        alt="Transform Your Business"
+                        className="w-full h-auto object-cover"
                         whileHover={{ scale: 1.03 }}
                         transition={{ duration: 0.3 }}
                       />  
@@ -837,11 +844,11 @@ export default function Home() {
             >
               &times;
             </button>
+                
             <img
-             
-              src="src/assets/popup-image.png" 
-              alt="Popup"
-              className="w-full h-auto rounded-lg"
+              src={PopupImage}
+              alt="Special Offer"
+              className="w-full h-auto object-contain rounded-lg"
             />
             <p className="text-gray-700 mt-4 text-center text-sm sm:text-base">Check out our latest offer!</p>
             <div className="mt-4 flex justify-center">
