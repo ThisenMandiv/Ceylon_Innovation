@@ -50,7 +50,7 @@ export default function About() {
       <main className="flex-1">
         {/* Hero Section */}
         <motion.section
-          className="relative bg-gradient-to-r from-blue-600 to-blue-800 text-white bg-cover bg-center min-h-[400px] mt-4"
+          className="relative bg-gradient-to-r from-blue-600 to-blue-800 text-white bg-cover bg-center min-h-[400px] "
           style={{ backgroundImage: `url(${skyLogo})` }}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -113,7 +113,7 @@ export default function About() {
               <div className="lg:col-span-1">
                 <div className="w-90 h-100 bg-gray-200 rounded-lg mx-auto mb-6 overflow-hidden">
                   <motion.img 
-                    src="assets/ceo_image.png" 
+                    src="src/assets/ceo_image.png" 
                     alt="Shalitha De Soysa - Founder & CEO" 
                     className="w-full h-full object-cover"
                     whileHover={{ scale: 1.05 }}
@@ -157,7 +157,7 @@ export default function About() {
               <ScrollAnimation delay={0.1}>
                 <div className="sm:col-span-2 lg:col-span-2 rounded-lg overflow-hidden shadow-lg">
                   <motion.img 
-                    src="assets/gallery1.png" 
+                    src="src/assets/gallery1.png" 
                     alt="Gallery image 1" 
                     className="w-full h-full object-cover transition-transform duration-300"
                     whileHover={{ scale: 1.03 }}
@@ -167,7 +167,7 @@ export default function About() {
               
               <ScrollAnimation delay={0.15}>
                 <motion.img 
-                  src="assets/gallery2.png" 
+                  src="src/assets/gallery2.png" 
                   alt="Gallery image 2" 
                   className="w-full h-full object-cover rounded-lg shadow-lg"
                   whileHover={{ scale: 1.03 }}
@@ -178,7 +178,7 @@ export default function About() {
               <ScrollAnimation delay={0.2}>
                 <div className="aspect-square rounded-lg overflow-hidden shadow-lg">
                   <motion.img 
-                    src="assets/gallery3.png" 
+                    src="src/assets/gallery3.png" 
                     alt="Gallery image 3" 
                     className="w-full h-full object-cover"
                     whileHover={{ scale: 1.03 }}
@@ -191,7 +191,7 @@ export default function About() {
               <ScrollAnimation delay={0.25}>
                 <div className="aspect-square rounded-lg overflow-hidden shadow-lg">
                   <motion.img 
-                    src="assets/gallery4.png" 
+                    src="src/assets/gallery4.png" 
                     alt="Gallery image 4" 
                     className="w-full h-full object-cover"
                     whileHover={{ scale: 1.03 }}
@@ -203,7 +203,7 @@ export default function About() {
               <ScrollAnimation delay={0.3}>
                 <div className="aspect-square rounded-lg overflow-hidden shadow-lg">
                   <motion.img 
-                    src="assets/gallery5.png" 
+                    src="src/assets/gallery5.png" 
                     alt="Gallery image 5" 
                     className="w-full h-full object-cover"
                     whileHover={{ scale: 1.03 }}
@@ -215,7 +215,7 @@ export default function About() {
               <ScrollAnimation delay={0.35}>
                 <div className="aspect-square rounded-lg overflow-hidden shadow-lg">
                   <motion.img 
-                    src="assets/gallery6.png" 
+                    src="src/assets/gallery6.png" 
                     alt="Gallery image 6" 
                     className="w-full h-full object-cover"
                     whileHover={{ scale: 1.03 }}
@@ -227,7 +227,7 @@ export default function About() {
               <ScrollAnimation delay={0.4}>
                 <div className="aspect-square rounded-lg overflow-hidden shadow-lg">
                   <motion.img 
-                    src="assets/gallery7.png" 
+                    src="src/assets/gallery7.png" 
                     alt="Gallery image 7" 
                     className="w-full h-full object-cover"
                     whileHover={{ scale: 1.03 }}
@@ -239,7 +239,7 @@ export default function About() {
               <ScrollAnimation delay={0.45}>
                 <div className="aspect-square rounded-lg overflow-hidden shadow-lg">
                   <motion.img 
-                    src="assets/gallery8.png" 
+                    src="src/assets/gallery8.png" 
                     alt="Gallery image 8" 
                     className="w-full h-full object-cover"
                     whileHover={{ scale: 1.03 }}
@@ -252,7 +252,7 @@ export default function About() {
               <ScrollAnimation delay={0.5}>
                 <div className="aspect-square rounded-lg overflow-hidden shadow-lg">
                   <motion.img 
-                    src="assets/gallery9.png" 
+                    src="src/assets/gallery9.png" 
                     alt="Gallery image 9" 
                     className="w-full h-full object-cover"
                     whileHover={{ scale: 1.03 }}
@@ -264,7 +264,7 @@ export default function About() {
               <ScrollAnimation delay={0.55}>
                 <div className="aspect-square rounded-lg overflow-hidden shadow-lg">
                   <motion.img 
-                    src="assets/gallery10.png" 
+                    src="src/assets/gallery10.png" 
                     alt="Gallery image 10" 
                     className="w-full h-full object-cover"
                     whileHover={{ scale: 1.03 }}
@@ -276,7 +276,7 @@ export default function About() {
               <ScrollAnimation delay={0.6}>
                 <div className="sm:col-span-2 lg:col-span-2 rounded-lg overflow-hidden shadow-lg">
                   <motion.img 
-                    src="assets/gallery16.png" 
+                    src="src/assets/gallery16.png" 
                     alt="Gallery image 16" 
                     className="w-full h-full object-cover"
                     whileHover={{ scale: 1.03 }}
@@ -289,7 +289,7 @@ export default function About() {
               <ScrollAnimation delay={0.65}>
                 <div className="aspect-square rounded-lg overflow-hidden shadow-lg">
                   <motion.img 
-                    src="assets/gallery12.png" 
+                    src="src/assets/gallery12.png" 
                     alt="Gallery image 12" 
                     className="w-full h-full object-cover"
                     whileHover={{ scale: 1.03 }}
@@ -301,7 +301,7 @@ export default function About() {
               <ScrollAnimation delay={0.7}>
                 <div className="aspect-square rounded-lg overflow-hidden shadow-lg">
                   <motion.img 
-                    src="assets/gallery13.png" 
+                    src="src/assets/gallery13.png" 
                     alt="Gallery image 13" 
                     className="w-full h-full object-cover"
                     whileHover={{ scale: 1.03 }}
@@ -313,7 +313,7 @@ export default function About() {
               <ScrollAnimation delay={0.75}>
                 <div className="aspect-square rounded-lg overflow-hidden shadow-lg">
                   <motion.img 
-                    src="assets/gallery14.png" 
+                    src="src/assets/gallery14.png" 
                     alt="Gallery image 14" 
                     className="w-full h-full object-cover"
                     whileHover={{ scale: 1.03 }}
@@ -325,7 +325,7 @@ export default function About() {
               <ScrollAnimation delay={0.8}>
                 <div className="aspect-square rounded-lg overflow-hidden shadow-lg">
                   <motion.img 
-                    src="assets/gallery15.png" 
+                    src="src/assets/gallery15.png" 
                     alt="Gallery image 15" 
                     className="w-full h-full object-cover"
                     whileHover={{ scale: 1.03 }}
@@ -338,7 +338,7 @@ export default function About() {
               <ScrollAnimation delay={0.85}>
                 <div className="sm:col-span-2 lg:col-span-2 rounded-lg overflow-hidden shadow-lg">
                   <motion.img 
-                    src="assets/gallery11.png" 
+                    src="src/assets/gallery11.png" 
                     alt="Gallery image 11" 
                     className="w-full h-full object-cover"
                     whileHover={{ scale: 1.03 }}
@@ -350,7 +350,7 @@ export default function About() {
               <ScrollAnimation delay={0.9}>
                 <div className="aspect-square rounded-lg overflow-hidden shadow-lg">
                   <motion.img 
-                    src="assets/gallery17.png" 
+                    src="src/assets/gallery17.png" 
                     alt="Gallery image 17" 
                     className="w-full h-full object-cover"
                     whileHover={{ scale: 1.03 }}
@@ -362,7 +362,7 @@ export default function About() {
               <ScrollAnimation delay={0.95}>
                 <div className="aspect-square rounded-lg overflow-hidden shadow-lg">
                   <motion.img 
-                    src="assets/gallery18.png" 
+                    src="src/assets/gallery18.png" 
                     alt="Gallery image 18" 
                     className="w-full h-full object-cover"
                     whileHover={{ scale: 1.03 }}

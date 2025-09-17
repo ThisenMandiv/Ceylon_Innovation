@@ -1,6 +1,12 @@
 import { motion } from 'framer-motion';
 import Navbar from '../components/Navbar.jsx';
 import Footer from '../components/Footer.jsx';
+import pharma from '../assets/pharma-ifs.png';
+import abesekara from '../assets/abesekara-dental.png';
+import suwana from '../assets/suwana-hospital.png';
+import emerald from '../assets/emerald-pharmacy.png';
+import lifecare from '../assets/lifecare-hospital.png';
+
 
 // Section data
 const sections = [
@@ -11,7 +17,7 @@ const sections = [
                   to data for key business decisions, prevent staff moving 
                   efficiently between tasks and slow down your reactions 
                   to change. IFS may be a way to avoid it.`,
-    imgSrc: '/assets/pharma-ifs.png',
+    imgSrc:   pharma,
     reverse: false,
   },
   {
@@ -20,7 +26,7 @@ const sections = [
                   patient records, appointment scheduling, treatment 
                   planning, imaging integration, inventory 
                   management and intelligent reports`,
-    imgSrc: '/assets/abesekara-dental.png',
+    imgSrc:   abesekara,
     reverse: true,
   },
   {
@@ -29,13 +35,13 @@ const sections = [
                   healthcare services with advanced patient care, 
                   modern medical equipment, clinical diagnostics, emergency 
                   support, and intelligent reporting`,
-    imgSrc: '/assets/suwana-hospital.png',
+    imgSrc:   suwana,
     reverse: false,
   },
   {
     title: 'Emerald Pharmacy',
     description: `Emerald Pharmacy Ceylon specializes in comprehensive pharmaceutical services with accurate prescription handling, advanced stock and inventory management, seamless supplier coordination, patient-focused support, modern diagnostic equipment, and intelligent reporting for better decision-making.`,
-    imgSrc: '/assets/emerald-pharmacy.png',
+    imgSrc:   emerald,
     reverse: true,
   },
   {
@@ -46,7 +52,7 @@ const sections = [
                   equipment, clinical laboratory services, emergency 
                   and critical care support, and intelligent 
                   reporting for improved healthcare delivery.`,
-    imgSrc: '/assets/lifecare-hospital.png',
+    imgSrc: lifecare,
     reverse: false,
   },
 ];

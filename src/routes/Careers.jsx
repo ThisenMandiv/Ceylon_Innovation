@@ -1,4 +1,4 @@
-import Navbar from '../components/Navbar.jsx'
+import Navbar from '../components/Navbar.jsx';
 import Footer from '../components/Footer.jsx'
 import heroImg from '../assets/landing.jpg'
 import { motion } from 'framer-motion'
@@ -42,11 +42,11 @@ export default function Careers() {
 
   return (
     <div className="min-h-full flex flex-col">
-      <Navbar />
+       <Navbar />
       <main className="flex-1">
         {/* Hero */}
         <section className="relative">
-          <div className="h-[240px] sm:h-[320px] md:h-[420px] lg:h-[520px] w-full overflow-hidden mt-30">
+          <div className="h-[240px] sm:h-[320px] md:h-[420px] lg:h-[520px] w-full overflow-hidden ">
             <img
               src={heroImg}
               alt="Ceylon Innovation Team"
@@ -155,6 +155,3 @@ export default function Careers() {
     </div>
   )
 }
-
-
-
